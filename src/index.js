@@ -1,18 +1,27 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import App from './App'
+import React, {Fragment} from 'react'
+import {render} from 'react-dom'
+import {BrowserRouter} from 'react-router-dom'
+import {AppContainer} from 'react-hot-loader'
+import appRoutes from './routes'
 
-const render = (Component) => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component />
-    </AppContainer>,
-    document.getElementById('root'),
-  )
+const renderApp = (appRoutes) => {
+    render(
+        <AppContainer>
+            <BrowserRouter>
+                <Fragment>
+                    {appRoutes}
+                </Fragment>
+            </BrowserRouter>
+        </AppContainer>,
+        document.getElementById('root'),
+    )
 }
 
-render(App)
+renderApp(appRoutes)
+
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./App', () => { render(App) })
+    module.hot.accept('./routes', () => {
+        const newRoutes = require('./routes').default;
+        renderApp(newRoutes)
+    })
 }
