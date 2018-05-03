@@ -1,11 +1,13 @@
 import React, {Fragment} from 'react';
-import {Route} from 'react-router-dom';
+import {Route} from 'react-router';
+import App from './app'
+import Cards from "./pages/cards";
 
 ////////////////////////////////////////////////////////////
 // first our route components
-const Main = () => <h1>Main</h1>
+const Main = () => <App/>
 
-const Sandwiches = () => <h2>Sandwiches</h2>
+const Card = () => <Cards/>
 
 const Tacos = () => <h2>Tacos</h2>
 
@@ -13,7 +15,7 @@ const Tacos = () => <h2>Tacos</h2>
 
 
 export default <Fragment>
-    <Route path='/' component={Main}/>
-    <Route path='/tacos' component={Tacos}/>
-    <Route path='/sanduba' component={Sandwiches}/>
+    <Route path='/' component={Main}>
+        <Route path='card' component={Card}/>
+    </Route>
 </Fragment>

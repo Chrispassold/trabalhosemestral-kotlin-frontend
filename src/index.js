@@ -1,15 +1,13 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {BrowserRouter as Router} from 'react-router-dom'
 import {AppContainer} from 'react-hot-loader'
 import appRoutes from './routes'
+import App from "./app";
 
 const renderApp = (appRoutes) => {
     render(
         <AppContainer>
-            <Router>
-                {appRoutes}
-            </Router>
+            <App/>
         </AppContainer>,
         document.getElementById('root'),
     )
