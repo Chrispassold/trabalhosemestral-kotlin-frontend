@@ -1,12 +1,19 @@
-import React from 'react';
-import {Route} from 'react-router';
+import React, {Fragment} from 'react';
+import {Route} from 'react-router-dom';
 
-import App from './App';
-import Cards from "./components/cards";
+////////////////////////////////////////////////////////////
+// first our route components
+const Main = () => <h1>Main</h1>
 
-const routes = [
-    <Route path='/' component={App}/>,
-    <Route path='/cards' component={Cards}/>
-];
+const Sandwiches = () => <h2>Sandwiches</h2>
 
-export default routes;
+const Tacos = () => <h2>Tacos</h2>
+
+////////////////////////////////////////////////////////////
+
+
+export default <Fragment>
+    <Route path='/' component={Main}/>
+    <Route path='/tacos' component={Tacos}/>
+    <Route path='/sanduba' component={Sandwiches}/>
+</Fragment>

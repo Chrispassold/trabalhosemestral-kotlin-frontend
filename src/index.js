@@ -1,17 +1,15 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import {render} from 'react-dom'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter as Router} from 'react-router-dom'
 import {AppContainer} from 'react-hot-loader'
 import appRoutes from './routes'
 
 const renderApp = (appRoutes) => {
     render(
         <AppContainer>
-            <BrowserRouter>
-                <Fragment>
-                    {appRoutes}
-                </Fragment>
-            </BrowserRouter>
+            <Router>
+                {appRoutes}
+            </Router>
         </AppContainer>,
         document.getElementById('root'),
     )
