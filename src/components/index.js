@@ -1,1 +1,1 @@
-export Card from './card'
+export CardUser from './card/card-user'

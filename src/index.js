@@ -8,7 +8,7 @@ import appRoutes from './routes'
 const renderApp = (appRoutes) => {
     render(
         <AppContainer>
-            <Router history={browserHistory}>
+            <Router history={browserHistory} key={Math.random()}>
                 {appRoutes}
             </Router>
         </AppContainer>,
