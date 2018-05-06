@@ -1,11 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import {
-    Menu as MenuUI,
-    Container,
-    MenuItem
-} from 'semantic-ui-react'
+import {Container, Menu as MenuUI, MenuItem} from 'semantic-ui-react'
 
 import Colors from '../../util/color'
 

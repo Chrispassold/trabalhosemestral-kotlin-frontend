@@ -1,9 +1,7 @@
 //https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/app/Layouts/StickyLayout.js
 
 import React, {Component, Fragment} from 'react'
-import {
-    Container, Header, Grid
-} from 'semantic-ui-react'
+import {Container, Header} from 'semantic-ui-react'
 
 import 'styling/semantic.less'
 
@@ -22,7 +20,7 @@ class App extends Component {
         const {menuFixed} = this.state
         return (
             <Fragment>
-                <Container text style={{marginTop: '2em'}}>
+                <Container style={{marginTop: '2em'}}>
                     <Header as='h1'>Lista de compras</Header>
                 </Container>
 
@@ -35,9 +33,7 @@ class App extends Component {
                 {/*</Visibility>*/}
 
                 <Container>
-                    <Grid columns={12}>
-                        {this.props.children}
-                    </Grid>
+                    {this.props.children}
                 </Container>
             </Fragment>
         )
