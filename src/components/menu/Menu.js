@@ -3,13 +3,12 @@ import _ from 'lodash'
 import {Container, Menu as MenuUI, MenuItem} from 'semantic-ui-react'
 import Assets from 'components/assets/Assets'
 
-import {Redirect} from 'react-router'
-
 const items = [
     {
         title: "Login",
         as: 'a',
-        href: '/login'
+        href: '/login',
+        position: 'right'
     }
 ]
 
@@ -18,7 +17,7 @@ const Menu = () => <MenuUI
     fixed='top' inverted
 >
     <Container>
-        <MenuItem as='a' header onClick={() => <Redirect to={'/'}/>}>
+        <MenuItem as='a' header href={'/'}>
             <Assets
                 size='mini'
                 src={'/logo.png'}
@@ -28,7 +27,7 @@ const Menu = () => <MenuUI
             Lista de compras
         </MenuItem>
         {_.map(items, (value, index) => {
-            return <MenuItem key={index} as={value.as || null}
+            return <MenuItem key={index} as={value.as || null} position={value.position}
                              href={!!value.href ? value.href : '#'}> {value.title} </MenuItem>
         })}
     </Container>

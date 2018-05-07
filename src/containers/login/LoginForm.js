@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button, Form, Grid, Segment} from 'semantic-ui-react'
+import Assets from "../../components/assets/Assets";
 
 const LoginForm = () => (
     <div className='login-form'>
@@ -21,6 +22,7 @@ const LoginForm = () => (
             verticalAlign='middle'
         >
             <Grid.Column style={{maxWidth: 450}}>
+                <Assets size={'small'} src={'/logo.png'} style={{padding: 20}} centered/>
                 <Form size='large'>
                     <Segment stacked>
                         <Form.Input
