@@ -36,12 +36,13 @@ const data = [
     }
 ]
 
-
+//TODO: Buscar listas
 class Home extends Component {
     render() {
         return <div style={formatGridContainer}>
             <Grid columns={3} stackable>
-                {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}/></GridColumn>)}
+                {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
+                                                                                         onClick={() => console.log(value)}/></GridColumn>)}
             </Grid>
         </div>
     }
