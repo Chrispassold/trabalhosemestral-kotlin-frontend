@@ -1,52 +1,37 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 import {Container, Menu as MenuUI, MenuItem} from 'semantic-ui-react'
+import Assets from 'components/assets/Assets'
 
-import Colors from '../../util/color'
-
-const menuStyle = {
-    border: 'none',
-    borderRadius: 0,
-    boxShadow: 'none',
-    marginBottom: '1em',
-    marginTop: '4em',
-    transition: 'box-shadow 0.5s ease, padding 0.5s ease',
-}
-
-const fixedMenuStyle = {
-    backgroundColor: Colors.backgroudColor,
-    border: '1px solid #ddd',
-    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-}
-
+import {Redirect} from 'react-router'
 
 const items = [
     {
-        title: "Lista de compras",
-        isHeader: true,
-    },
-    {
-        title: "About",
-        isHeader: false,
-        as: 'a'
+        title: "Login",
+        as: 'a',
+        href: '/login'
     }
 ]
 
-const Menu = ({fixed = false}) => <MenuUI
+const Menu = () => <MenuUI
     borderless
-    fixed={fixed && 'top'}
-    style={fixed ? fixedMenuStyle : menuStyle}
+    fixed='top' inverted
 >
-    <Container text>
-        {_.map(items, (value) => {
-            return <MenuItem as={value.as || null} header={value.isHeader || false}> {value.title} </MenuItem>
+    <Container>
+        <MenuItem as='a' header onClick={() => <Redirect to={'/'}/>}>
+            <Assets
+                size='mini'
+                src={'/logo.png'}
+                style={{marginRight: '1.5em'}}
+            />
+
+            Lista de compras
+        </MenuItem>
+        {_.map(items, (value, index) => {
+            return <MenuItem key={index} as={value.as || null}
+                             href={!!value.href ? value.href : '#'}> {value.title} </MenuItem>
         })}
     </Container>
 </MenuUI>
-
-Menu.propTypes = {
-    fixed: PropTypes.bool
-}
 
 export default Menu;

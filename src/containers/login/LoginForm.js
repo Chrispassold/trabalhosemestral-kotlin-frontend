@@ -37,7 +37,7 @@ const LoginForm = () => (
                             type='password'
                         />
 
-                        <Button primary fluid size='large'>Entrar</Button>
+                        <Button primary fluid size='large' as={'a'} href={'/'}>Entrar</Button>
                     </Segment>
                 </Form>
                 {/*<Message>*/}
