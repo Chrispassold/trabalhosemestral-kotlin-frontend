@@ -187,6 +187,7 @@ module.exports = {
             '../../theme.config$': path.resolve(paths.appSrc, 'styling/theme.config'),
             heading: path.resolve(paths.appSrc, 'styling/heading.less'),
             components: path.resolve(paths.appSrc, 'components'),
+            utils: path.resolve(paths.appSrc, 'utils'),
         },
         // This allows you to set a fallback for where Webpack should look for modules.
         // We placed these paths second because we want `node_modules` to "win"

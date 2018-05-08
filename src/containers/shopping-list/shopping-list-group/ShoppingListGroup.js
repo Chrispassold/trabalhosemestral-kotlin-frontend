@@ -5,34 +5,35 @@ import _ from 'lodash'
 import {browserHistory} from 'react-router'
 
 import ProgressListItem from 'components/lists/progress/ProgressListItem'
+import {generatedUUID} from "utils/commom";
 
 const data = [
     {
-        id: Math.floor(Math.random() * 100),
+        id: generatedUUID(),
         title: 'Lista Big Supermercado',
         created: '06/05/2018',
         percent: Math.floor(Math.random() * 100)
     },
     {
-        id: Math.floor(Math.random() * 100),
+        id: generatedUUID(),
         title: 'Lista Big Supermercado',
         created: '06/05/2018',
         percent: Math.floor(Math.random() * 100)
     },
     {
-        id: Math.floor(Math.random() * 100),
+        id: generatedUUID(),
         title: 'Lista Big Supermercado',
         created: '06/05/2018',
         percent: Math.floor(Math.random() * 100)
     },
     {
-        id: Math.floor(Math.random() * 100),
+        id: generatedUUID(),
         title: 'Lista Big Supermercado',
         created: '06/05/2018',
         percent: Math.floor(Math.random() * 100)
     },
     {
-        id: Math.floor(Math.random() * 100),
+        id: generatedUUID(),
         title: 'Lista Big Supermercado',
         created: '06/05/2018',
         percent: Math.floor(Math.random() * 100)

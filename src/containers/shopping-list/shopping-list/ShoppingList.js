@@ -3,6 +3,7 @@ import _ from 'lodash'
 import {Grid, GridColumn, GridRow, Header, List} from 'semantic-ui-react'
 import InputAdd from "components/input/InputAdd";
 import {If} from "components/helper";
+import ShoppingListItem from "../../../components/lists/item/ShoppingListItem";
 
 
 class ShoppingList extends Component {
@@ -53,7 +54,7 @@ class ShoppingList extends Component {
                     <If check={data.length > 0}>
                         <List as='ol'>
                             {_.map(data, (current, index) => {
-                                return <List.Item key={index} as='li'>{current}</List.Item>
+                                return <ShoppingListItem key={index} data={current}/>
                             })}
                         </List>
                     </If>
