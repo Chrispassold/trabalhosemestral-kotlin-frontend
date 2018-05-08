@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn} from 'semantic-ui-react'
+import {Grid, GridColumn, GridRow, Header} from 'semantic-ui-react'
 import InputAdd from "components/input/InputAdd";
 
+
+const data = []
 
 class ShoppingList extends Component {
     state = {
@@ -26,9 +28,19 @@ class ShoppingList extends Component {
         const {inputLoading} = this.state
 
         return <Grid columns={9} centered>
-            <GridColumn width={9}>
-                <InputAdd loading={inputLoading} onRequestHandle={this.onActionClick}/>
-            </GridColumn>
+            <GridRow>
+                <GridColumn width={9}>
+                    <InputAdd loading={inputLoading} onRequestHandle={this.onActionClick}/>
+                </GridColumn>
+            </GridRow>
+            <GridRow>
+                <GridColumn width={9}>
+                    {data.length === 0 && <Header as={'h2'} textAlign={'center'}>
+                        Sem resultados
+                        <Header.Subheader>Adicione um item para começar</Header.Subheader>
+                    </Header>}
+                </GridColumn>
+            </GridRow>
         </Grid>
     }
 }
