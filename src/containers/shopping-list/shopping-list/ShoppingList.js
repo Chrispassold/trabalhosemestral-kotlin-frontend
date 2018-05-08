@@ -1,31 +1,38 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn, GridRow, Header} from 'semantic-ui-react'
+import _ from 'lodash'
+import {Grid, GridColumn, GridRow, Header, List} from 'semantic-ui-react'
 import InputAdd from "components/input/InputAdd";
+import {If} from "components/helper";
 
-
-const data = []
 
 class ShoppingList extends Component {
     state = {
-        inputLoading: false
+        inputLoading: false,
+        data: []
     }
 
     startInputLoading = () => this.setState({inputLoading: true})
 
     stopInputLoading = () => this.setState({inputLoading: false})
 
+    addData = (value) => {
+        const data = this.state.data
+        data.push(value)
+        this.setState({data})
+    }
+
     //TODO: buscar itens
     onActionClick = (value) => {
         this.startInputLoading()
         setTimeout(() => {
-            console.log(value)
             this.stopInputLoading()
+            this.addData(value)
         }, Math.floor(Math.random() * 1000))
     }
 
 
     render() {
-        const {inputLoading} = this.state
+        const {inputLoading, data} = this.state
 
         return <Grid columns={9} centered>
             <GridRow>
@@ -35,10 +42,22 @@ class ShoppingList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    {data.length === 0 && <Header as={'h2'} textAlign={'center'}>
-                        Sem resultados
-                        <Header.Subheader>Adicione um item para começar</Header.Subheader>
-                    </Header>}
+
+                    <If check={data.length === 0}>
+                        <Header as={'h2'} textAlign={'center'}>
+                            Sem resultados
+                            <Header.Subheader>Adicione um item para começar</Header.Subheader>
+                        </Header>
+                    </If>
+
+                    <If check={data.length > 0}>
+                        <List as='ol'>
+                            {_.map(data, (current, index) => {
+                                return <List.Item key={index} as='li'>{current}</List.Item>
+                            })}
+                        </List>
+                    </If>
+
                 </GridColumn>
             </GridRow>
         </Grid>
