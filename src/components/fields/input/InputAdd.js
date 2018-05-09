@@ -5,7 +5,7 @@ import {Input} from 'semantic-ui-react'
 class InputAdd extends Component {
 
     state = {
-        addText: ''
+        text: ''
     }
 
     isAddLoading = () => {
@@ -14,17 +14,17 @@ class InputAdd extends Component {
 
     onAddChange = (event, data) => {
         if (this.isAddLoading()) return;
-        this.setState({addText: data.value}, () => {
-            if (this.state.addText === null || this.state.addText.length === 0) {
-                this.onActionClick()
+        this.setState({text: data.value}, () => {
+            if (this.state.text === null || this.state.text.length === 0) {
+                this.props.onRequestHandle(this.state.text)
             }
         })
     }
 
     onActionClick = () => {
-        if (this.isAddLoading()) return;
+        if (!this.state.text.length || this.isAddLoading()) return;
 
-        this.props.onRequestHandle(this.state.addText)
+        this.props.onRequestHandle(this.state.text)
     }
 
     onActionKeyPress = (e) => {
@@ -38,7 +38,6 @@ class InputAdd extends Component {
     }
 
     render() {
-
         const {loading = false} = this.props
         return <Input fluid
                       loading={loading}

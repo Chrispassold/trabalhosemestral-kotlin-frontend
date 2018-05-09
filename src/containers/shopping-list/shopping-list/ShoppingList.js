@@ -1,16 +1,15 @@
 import React, {Component} from 'react'
-import _ from 'lodash'
-import {Grid, GridColumn, GridRow, Header, Segment} from 'semantic-ui-react'
+import {Grid, GridColumn, GridRow} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
-import {If} from "components/helper";
-import ShoppingListItem from "components/lists/item/ShoppingListItem";
 
+import DataSegment from 'components/lists/item/DataSegment'
+import {generatedUUID} from "../../../utils/commom";
 
 class ShoppingList extends Component {
     state = {
         inputLoading: false,
-        todo: [],
-        done: [{
+        data: [{
+            id: generatedUUID(),
             label: 'oi',
             checked: true
         }]
@@ -21,9 +20,13 @@ class ShoppingList extends Component {
     stopInputLoading = () => this.setState({inputLoading: false})
 
     addData = (value) => {
-        const data = this.state.todo
-        data.push(value)
-        this.setState({todo: data})
+        const data = this.state.data
+        data.push({
+            id: generatedUUID(),
+            label: value,
+            checked: false
+        })
+        this.setState({data})
     }
 
     //TODO: buscar itens
@@ -35,9 +38,17 @@ class ShoppingList extends Component {
         }, Math.floor(Math.random() * 1000))
     }
 
+    filterOnlyDone = (data) => !!data.checked
+
+    filterOnlyNotDone = (data) => !data.checked
+
+    //todo: salvar
+    save = (e, object) => {
+
+    }
 
     render() {
-        const {inputLoading, todo, done} = this.state
+        const {inputLoading, data} = this.state
 
         return <Grid columns={9} centered>
             <GridRow>
@@ -47,47 +58,8 @@ class ShoppingList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-
-                    <Header as={'h3'} attached='top' block>
-                        Fazer
-                    </Header>
-                    <Segment attached>
-
-                        <If check={!todo.length}>
-                            <Header as={'h2'} textAlign={'center'}>
-                                Sem resultados
-                                <Header.Subheader>Adicione um item para começar</Header.Subheader>
-                            </Header>
-                        </If>
-
-                        <If check={!!todo.length}>
-                            {_.map(todo, (current, index) => {
-                                return <ShoppingListItem key={index} data={current}/>
-                            })}
-                        </If>
-                    </Segment>
-
-                    <Header as={'h3'} attached='top' block>
-                        Feito
-                    </Header>
-                    <Segment attached>
-                        <If check={!done.length}>
-                            <Header as={'h2'} textAlign={'center'}>
-                                Sem resultados
-                                <Header.Subheader>Adicione um item para começar</Header.Subheader>
-                            </Header>
-                        </If>
-                        <If check={!!done.length}>
-                            {_.map(done, (current, index) => {
-                                return <ShoppingListItem key={index}
-                                                         isDone={current.checked}
-                                                         data={current.label}
-                                                         onChange={(checked) => console.log(checked)}
-                                />
-                            })}
-                        </If>
-                    </Segment>
-
+                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'} onItemChange={console.log}/>
+                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'} onItemChange={console.log}/>
                 </GridColumn>
             </GridRow>
         </Grid>

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {Grid, GridColumn, GridRow, Segment} from 'semantic-ui-react'
 import CheckboxCheckGreen from "components/fields/checkbox/CheckboxCheckGreen";
 
-const ShoppingListItem = ({data, isDone = false, onChange}) => <Segment>
+const Item = ({data, isDone = false, onChange, ...rest}) => <Segment>
     <Grid>
         <GridRow>
             <GridColumn verticalAlign={'middle'} width={14}>
-                <CheckboxCheckGreen label={data} defaultChecked={isDone} onChange={onChange}/>
+                <CheckboxCheckGreen {...rest} label={data} onChange={onChange}/>
             </GridColumn>
             {/*<GridColumn verticalAlign={'middle'} textAlign={'right'}>*/}
             {/*<Icon size={'large'} floated={'right'} name='delete'/>*/}
@@ -16,9 +16,9 @@ const ShoppingListItem = ({data, isDone = false, onChange}) => <Segment>
     </Grid>
 </Segment>
 
-ShoppingListItem.propTypes = {
+Item.propTypes = {
     data: PropTypes.any,
     onClick: PropTypes.func
 }
 
-export default ShoppingListItem;
+export default Item;
