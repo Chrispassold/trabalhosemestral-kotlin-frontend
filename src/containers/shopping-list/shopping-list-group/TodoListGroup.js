@@ -41,7 +41,7 @@ const data = [
 ]
 
 //TODO: Buscar listas
-class ShoppingListGroup extends Component {
+class TodoListGroup extends Component {
     render() {
         return <div>
             <Grid columns={3} stackable>
@@ -52,4 +52,4 @@ class ShoppingListGroup extends Component {
     }
 }
 
-export default ShoppingListGroup
+export default TodoListGroup
