@@ -19,7 +19,9 @@ const CheckboxCheckGreen = ({label, onChange, defaultChecked, ...rest}) => <div
     <input {...rest} type="checkbox" onChange={(e) => !!onChange && onChange(e.target.checked)}/>
     <div className="state p-primary">
         <i className="icon mdi mdi-check"/>
-        <label style={!!defaultChecked ? style.checked : {}}>{label}</label>
+        <label>
+            <span style={!!defaultChecked ? style.checked : {}}>{label}</span>
+        </label>
     </div>
 </div>
 
