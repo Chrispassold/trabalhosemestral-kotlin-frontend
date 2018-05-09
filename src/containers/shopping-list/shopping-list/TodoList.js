@@ -5,7 +5,7 @@ import InputAdd from "components/fields/input/InputAdd";
 import DataSegment from 'components/lists/item/DataSegment'
 import {generatedUUID} from "../../../utils/commom";
 
-class ShoppingList extends Component {
+class TodoList extends Component {
     state = {
         inputLoading: false,
         data: [{
@@ -67,4 +67,4 @@ class ShoppingList extends Component {
 }
 
 
-export default ShoppingList
+export default TodoList

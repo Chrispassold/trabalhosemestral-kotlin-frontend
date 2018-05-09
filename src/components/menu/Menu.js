@@ -24,7 +24,7 @@ const Menu = () => <MenuUI
                 style={{marginRight: '1.5em'}}
             />
 
-            Lista de compras
+            To-Do
         </MenuItem>
         {_.map(items, (value, index) => {
             return <MenuItem key={index} as={value.as || null} position={value.position}
