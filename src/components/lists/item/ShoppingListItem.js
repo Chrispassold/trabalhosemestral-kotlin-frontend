@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Checkbox, Segment} from 'semantic-ui-react'
+import {Segment} from 'semantic-ui-react'
+import CheckboxCheckGreen from "components/fields/checkbox/CheckboxCheckGreen";
 
-const ShoppingListItem = ({data, onClick}) => <Segment>
-    <Checkbox label={data}/>
+const ShoppingListItem = ({data, isDone = false, onClick}) => <Segment>
+    <CheckboxCheckGreen label={data} checked={isDone}/>
 </Segment>
 
 ShoppingListItem.propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.any,
     onClick: PropTypes.func
 }
 

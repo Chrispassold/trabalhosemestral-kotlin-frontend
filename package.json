@@ -5,6 +5,7 @@
   "description": "Get started with Semantic UI React and Webpack 3",
   "dependencies": {
     "lodash": "^4.17.10",
+    "pretty-checkbox": "^3.0.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
