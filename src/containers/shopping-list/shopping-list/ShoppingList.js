@@ -11,7 +11,8 @@ class ShoppingList extends Component {
         inputLoading: false,
         todo: [],
         done: [{
-            label: 'oi'
+            label: 'oi',
+            checked: true
         }]
     }
 
@@ -78,7 +79,11 @@ class ShoppingList extends Component {
                         </If>
                         <If check={!!done.length}>
                             {_.map(done, (current, index) => {
-                                return <ShoppingListItem key={index} isDone={true} data={current.label}/>
+                                return <ShoppingListItem key={index}
+                                                         isDone={current.checked}
+                                                         data={current.label}
+                                                         onChange={(checked) => console.log(checked)}
+                                />
                             })}
                         </If>
                     </Segment>

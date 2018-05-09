@@ -9,7 +9,7 @@ import 'styling/semantic.less'
 class App extends Component {
 
     render() {
-        console.log(this.props.location)
+        // console.log(this.props.location)
         return (
             <Fragment>
                 <Menu/>
