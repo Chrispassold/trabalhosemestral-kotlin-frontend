@@ -8,6 +8,11 @@ const style = {
     }
 }//todo: mudar cor para branco
 
+// height: 100px;
+// background: red;
+// font-size: 2em;
+// color: #fff;
+
 export default class CreateListModal extends Component {
 
     render() {
