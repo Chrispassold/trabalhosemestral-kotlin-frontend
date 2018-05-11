@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {IndexRoute, Route} from 'react-router';
 // COMPONENTS
-import App from './app'
+import App from './App'
 import TodoListGroup from "./containers/shopping-list/shopping-list-group/TodoListGroup";
 import Login from "./containers/login/Login";
 import TodoList from "./containers/shopping-list/shopping-list/TodoList";

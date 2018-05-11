@@ -188,6 +188,7 @@ module.exports = {
             heading: path.resolve(paths.appSrc, 'styling/heading.less'),
             components: path.resolve(paths.appSrc, 'components'),
             utils: path.resolve(paths.appSrc, 'utils'),
+            services: path.resolve(paths.appSrc, 'services'),
         },
         // This allows you to set a fallback for where Webpack should look for modules.
         // We placed these paths second because we want `node_modules` to "win"

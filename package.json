@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Get started with Semantic UI React and Webpack 3",
   "dependencies": {
+    "axios": "^0.18.0",
     "firebase": "^5.0.1",
     "lodash": "^4.17.10",
     "pretty-checkbox": "^3.0.3",
