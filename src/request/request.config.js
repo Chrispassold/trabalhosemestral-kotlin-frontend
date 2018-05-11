@@ -3,6 +3,6 @@ export default {
     timeout: 1000,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 }

@@ -42,6 +42,13 @@ const data = [
 
 //TODO: Buscar listas
 class TodoListGroup extends Component {
+
+    componentDidMount() {
+        // TodoListService.findAll()
+        // TodoListService.remove(1)
+        // TodoListService.findAll()
+    }
+
     render() {
         return <div>
             <Grid columns={3} stackable>

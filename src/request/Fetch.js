@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import RequestConfig from '../config/request.config'
+import RequestConfig from './request.config'
 
 function Fetch() {
 
