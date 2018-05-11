@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn} from 'semantic-ui-react'
+import {Button, Grid, GridColumn, Icon} from 'semantic-ui-react'
 import _ from 'lodash'
 
 import {browserHistory} from 'react-router'
 
 import ProgressListItem from 'components/lists/progress/ProgressListItem'
 import {generatedUUID} from "utils/commom";
+import CreateListModal from "./CreateListModal";
 
 const data = [
     {
@@ -43,6 +44,14 @@ const data = [
 //TODO: Buscar listas
 class TodoListGroup extends Component {
 
+    state = {
+        openNew: false
+    }
+
+    openNew = () => this.setState({openNew: true})
+
+    closeNew = () => this.setState({openNew: false})
+
     componentDidMount() {
         // TodoListService.findAll()
         // TodoListService.remove(1)
@@ -50,11 +59,19 @@ class TodoListGroup extends Component {
     }
 
     render() {
+        const {openNew} = this.state
+
         return <div>
+            <Grid>
+                <GridColumn verticalAlign={'middle'} textAlign={'right'}>
+                    <Button primary onClick={this.openNew}> <Icon name='add'/> Novo</Button>
+                </GridColumn>
+            </Grid>
             <Grid columns={3} stackable>
                 {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
                                                                                          onClick={() => browserHistory.push(`items/${value.id}`)}/></GridColumn>)}
             </Grid>
+            {openNew && <CreateListModal open={openNew} onRequest={console.info} onClose={this.closeNew}/>}
         </div>
     }
 }
