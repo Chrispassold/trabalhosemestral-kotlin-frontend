@@ -3,3 +3,10 @@ export const generatedUUID = () => {
 
     return generate() + generate() + '-' + generate() + '-' + generate() + '-' + generate() + '-' + generate() + generate() + generate();
 }
+
+
+export const isEnterPressed = (e) => {
+    const key = e.keyCode || e.which
+
+    return !!key && key === 13
+}

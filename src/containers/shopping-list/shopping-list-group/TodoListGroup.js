@@ -6,7 +6,7 @@ import {browserHistory} from 'react-router'
 
 import ProgressListItem from 'components/lists/progress/ProgressListItem'
 import {generatedUUID} from "utils/commom";
-import CreateListModal from "./CreateListModal";
+import CreateListModal from "./create-list-modal/CreateListModal";
 
 const data = [
     {
@@ -71,7 +71,7 @@ class TodoListGroup extends Component {
                 {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
                                                                                          onClick={() => browserHistory.push(`items/${value.id}`)}/></GridColumn>)}
             </Grid>
-            {openNew && <CreateListModal open={openNew} onRequest={console.info} onClose={this.closeNew}/>}
+            {openNew && <CreateListModal open={openNew} onClose={this.closeNew}/>}
         </div>
     }
 }

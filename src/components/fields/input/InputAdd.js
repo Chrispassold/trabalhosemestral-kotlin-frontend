@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Input} from 'semantic-ui-react'
+import {isEnterPressed} from "../../../utils/commom";
 
 class InputAdd extends Component {
 
@@ -30,9 +31,7 @@ class InputAdd extends Component {
     onActionKeyPress = (e) => {
         if (this.isAddLoading()) return;
 
-        const key = e.keyCode || e.which
-
-        if (key === 13) { //enter
+        if (isEnterPressed(e)) {
             this.onActionClick(e)
         }
     }
