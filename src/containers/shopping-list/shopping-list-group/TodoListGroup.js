@@ -54,7 +54,7 @@ class TodoListGroup extends Component {
             <If check={!_.isEmpty(data)}>
                 <Grid columns={3} stackable>
                     {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
-                                                                                             onClick={() => browserHistory.push(`items/${value.id}`)}/></GridColumn>)}
+                                                                                             onClick={() => browserHistory.push(`${value.id}/items`)}/></GridColumn>)}
                 </Grid>
             </If>
             {openNew && <CreateListModal open={openNew} onClose={this.closeNew}/>}

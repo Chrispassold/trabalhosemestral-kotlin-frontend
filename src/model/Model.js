@@ -1,6 +1,8 @@
 class Model {
-    constructor() {
+    constructor(createdAt = null, updatedAt = null) {
         this.errors = {}
+        this.createdAt = !!createdAt ? new Date(createdAt) : null
+        this.updatedAt = !!updatedAt ? new Date(updatedAt) : null
     }
 
     addError(key, msg) {
