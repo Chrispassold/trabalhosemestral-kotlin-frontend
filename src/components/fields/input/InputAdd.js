@@ -40,6 +40,7 @@ class InputAdd extends Component {
 
         if (!!text) {
             this.props.onRequestHandle(text)
+            this.clearText()
         } else {
             this.toggleAnimation()
         }
@@ -62,7 +63,7 @@ class InputAdd extends Component {
                    autoFocus={autoFocus}
                    loading={loading}
                    disabled={loading}
-                   defaultValue={this.state.text}
+                   value={this.state.text}
                    icon='add'
                    iconPosition={'left'}
                    action={{content: 'Adicionar', onClick: this.onActionClick, primary: true}}
