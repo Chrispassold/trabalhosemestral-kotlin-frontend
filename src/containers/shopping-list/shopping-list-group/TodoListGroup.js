@@ -5,61 +5,40 @@ import _ from 'lodash'
 import {browserHistory} from 'react-router'
 
 import ProgressListItem from 'components/lists/progress/ProgressListItem'
-import {generatedUUID} from "utils/commom";
 import CreateListModal from "./create-list-modal/CreateListModal";
+import * as Service from 'services/TodoListService'
+import EmptyData from "components/empty/EmptyData";
+import If from "../../../components/helper/If";
 
-const data = [
-    {
-        id: generatedUUID(),
-        title: 'Lista Big Supermercado',
-        created: '06/05/2018',
-        percent: Math.floor(Math.random() * 100)
-    },
-    {
-        id: generatedUUID(),
-        title: 'Lista Big Supermercado',
-        created: '06/05/2018',
-        percent: Math.floor(Math.random() * 100)
-    },
-    {
-        id: generatedUUID(),
-        title: 'Lista Big Supermercado',
-        created: '06/05/2018',
-        percent: Math.floor(Math.random() * 100)
-    },
-    {
-        id: generatedUUID(),
-        title: 'Lista Big Supermercado',
-        created: '06/05/2018',
-        percent: Math.floor(Math.random() * 100)
-    },
-    {
-        id: generatedUUID(),
-        title: 'Lista Big Supermercado',
-        created: '06/05/2018',
-        percent: Math.floor(Math.random() * 100)
-    }
-]
-
-//TODO: Buscar listas
 class TodoListGroup extends Component {
 
     state = {
-        openNew: false
+        openNew: false,
+        data: []
     }
 
     openNew = () => this.setState({openNew: true})
 
-    closeNew = () => this.setState({openNew: false})
+    closeNew = () => {
+        this.setState({openNew: false})
+        this.search()
+    }
+
+    search = () => {
+        Service.findAll()
+            .then((responseModel) => {
+                console.log(responseModel)
+                this.setState({data: responseModel})
+            })
+
+    }
 
     componentDidMount() {
-        // TodoListService.findAll()
-        // TodoListService.remove(1)
-        // TodoListService.findAll()
+        this.search()
     }
 
     render() {
-        const {openNew} = this.state
+        const {openNew, data} = this.state
 
         return <div>
             <Grid>
@@ -67,10 +46,17 @@ class TodoListGroup extends Component {
                     <Button primary onClick={this.openNew}> <Icon name='add'/> Novo</Button>
                 </GridColumn>
             </Grid>
-            <Grid columns={3} stackable>
-                {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
-                                                                                         onClick={() => browserHistory.push(`items/${value.id}`)}/></GridColumn>)}
-            </Grid>
+
+            <If check={_.isEmpty(data)}>
+                <EmptyData/>
+            </If>
+
+            <If check={!_.isEmpty(data)}>
+                <Grid columns={3} stackable>
+                    {_.map(data, (value, index) => <GridColumn key={index}><ProgressListItem data={value}
+                                                                                             onClick={() => browserHistory.push(`items/${value.id}`)}/></GridColumn>)}
+                </Grid>
+            </If>
             {openNew && <CreateListModal open={openNew} onClose={this.closeNew}/>}
         </div>
     }

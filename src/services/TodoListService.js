@@ -1,14 +1,21 @@
 import Fetch from '../request/Fetch'
+import _ from 'lodash'
+import TodoListModel from "model/TodoListModel";
 
 export const findAll = () => {
-    Fetch
+    return Fetch
         .get('todo/lists')
-        .then((response) => console.log(response))
+        .then((response) => {
+            return _.map(response.data, (value) => {
+                return new TodoListModel(value)
+            })
+
+        })
 }
 
 export const remove = (id) => {
     let idRemove = parseInt(id, 10)
-    if (isNaN(idRemove)) return Promise.reject(new Error("Invalid parameter"))
+    if (isNaN(idRemove)) return Promise.reject(new Error("Incorrect ID"))
 
     return Fetch
         .delete(`todo/list/${idRemove}`)

@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Input} from 'semantic-ui-react'
-import {isEnterPressed} from "../../../utils/commom";
+import {isEnterPressed} from "utils/commom";
+import Shake from "components/animations/Shake";
 
 class InputAdd extends Component {
 
     state = {
-        text: ''
+        text: '',
+        errorToggle: true
     }
 
     isAddLoading = () => {
@@ -16,16 +18,31 @@ class InputAdd extends Component {
     onAddChange = (event, data) => {
         if (this.isAddLoading()) return;
         this.setState({text: data.value}, () => {
-            if (this.state.text === null || this.state.text.length === 0) {
-                this.props.onRequestHandle(this.state.text)
+            if (this.state.text.length === 0) {
+                if (this.props.onClear) {
+                    this.props.onClear()
+                }
             }
         })
     }
 
-    onActionClick = () => {
-        if (!this.state.text.length || this.isAddLoading()) return;
+    clearText = () => {
+        this.setState({text: ''})
+    }
 
-        this.props.onRequestHandle(this.state.text)
+    onActionClick = (e) => {
+
+        !!e && e.preventDefault()
+
+        if (this.isAddLoading()) return;
+
+        const {text} = this.state
+
+        if (!!text) {
+            this.props.onRequestHandle(text)
+        } else {
+            this.toggleAnimation()
+        }
     }
 
     onActionKeyPress = (e) => {
@@ -36,23 +53,31 @@ class InputAdd extends Component {
         }
     }
 
+    toggleAnimation = () => this.setState({errorToggle: !this.state.errorToggle})
+
     render() {
-        const {loading = false} = this.props
-        return <Input fluid
-                      loading={loading}
-                      disabled={loading}
-                      icon='add'
-                      iconPosition={'left'}
-                      action={{content: 'Adicionar', onClick: this.onActionClick}}
-                      onChange={this.onAddChange}
-                      onKeyPress={this.onActionKeyPress}
-        />
+        const {loading = false, autoFocus = true} = this.props
+        return <Shake visible={this.state.errorToggle}>
+            <Input fluid
+                   autoFocus={autoFocus}
+                   loading={loading}
+                   disabled={loading}
+                   defaultValue={this.state.text}
+                   icon='add'
+                   iconPosition={'left'}
+                   action={{content: 'Adicionar', onClick: this.onActionClick, primary: true}}
+                   onChange={this.onAddChange}
+                   onKeyPress={this.onActionKeyPress}
+            />
+        </Shake>
     }
 }
 
 InputAdd.propTypes = {
     onRequestHandle: PropTypes.func.isRequired,
-    loading: PropTypes.bool
+    onClear: PropTypes.func,
+    loading: PropTypes.bool,
+    autoFocus: PropTypes.bool,
 }
 
 export default InputAdd

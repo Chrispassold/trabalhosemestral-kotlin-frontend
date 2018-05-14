@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Card, Image, Progress} from 'semantic-ui-react'
+import {Card, Progress} from 'semantic-ui-react'
+import {humanize} from "utils/date";
+import RandomAvatarImage from "components/assets/RandomAvatarImage";
+
 
 const progressStyle = {
     marginBottom: 0
@@ -9,16 +12,17 @@ const progressStyle = {
 const ProgressListItem = ({data, onClick}) => <Card.Group>
     <Card fluid onClick={() => !!onClick && onClick()}>
         <Card.Content>
-            <Image floated='right' size='mini' src='https://react.semantic-ui.com/assets/images/avatar/small/joe.jpg'/>
+            <RandomAvatarImage floated='right' size='mini'/>
             <Card.Header>
-                {data.title}
+                {data.name}
             </Card.Header>
             <Card.Meta>
-                Criado em {data.created}
+                {!!data.updatedAt && `Atualizado em ${humanize(data.updatedAt)}`}
+                {!data.updatedAt && `Criado em ${humanize(data.createdAt)}`}
             </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-            <Progress percent={data.percent} success size={'tiny'} style={progressStyle}/>
+            <Progress percent={!!data.percent ? data.percent : 0} success size={'tiny'} style={progressStyle}/>
         </Card.Content>
     </Card>
 </Card.Group>
