@@ -1,18 +1,29 @@
 import React, {Component} from 'react'
 import {Grid, GridColumn, GridRow} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
-
+import * as Service from "services/TodoItemService"
+import * as ServiceTodoList from "services/TodoListService"
 import DataSegment from 'components/lists/item/DataSegment'
 import {generatedUUID} from "../../../utils/commom";
 
 class TodoList extends Component {
     state = {
         inputLoading: false,
-        data: [{
-            id: generatedUUID(),
-            label: 'oi',
-            checked: true
-        }]
+        data: []
+    }
+
+    componentDidMount() {
+        this.search()
+    }
+
+    getTodoList = () => ServiceTodoList.findById(this.props.params.id)
+
+    search = () => {
+        this.getTodoList().then((todoList) => {
+            Service
+                .findAll(todoList)
+                .then((arrResponse) => this.setState({data: arrResponse}))
+        })
     }
 
     startInputLoading = () => this.setState({inputLoading: true})
@@ -58,8 +69,8 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'} onItemChange={console.log}/>
-                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'} onItemChange={console.log}/>
+                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'} onItemChange={this.save}/>
+                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'} onItemChange={this.save}/>
                 </GridColumn>
             </GridRow>
         </Grid>

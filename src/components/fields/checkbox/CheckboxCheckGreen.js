@@ -14,13 +14,13 @@ const style = {
     }
 }
 //TODO: fazer componente controlado e colocar um icone de check
-const CheckboxCheckGreen = ({label, onChange, defaultChecked, ...rest}) => <div
+const CheckboxCheckGreen = ({label, onChange, checked, ...rest}) => <div
     className="pretty p-icon p-round p-jelly">
-    <input {...rest} type="checkbox" onChange={(e) => !!onChange && onChange(e)}/>
+    <input {...rest} defaultChecked={checked} type="checkbox" onChange={(e) => !!onChange && onChange(e)}/>
     <div className="state p-success">
         <i className="icon mdi mdi-check"/>
         <label>
-            <span style={!!defaultChecked ? style.checked : {}}>{label}</span>
+            <span style={!!checked ? style.checked : {}}>{label}</span>
         </label>
     </div>
 </div>

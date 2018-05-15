@@ -17,8 +17,7 @@ const DataSegment = ({data, label, onItemChange}) => <Fragment>
         <If check={!!data.length}>
             {_.map(data, (current, index) => {
                 return <Item key={index}
-                             isDone={current.checked}
-                             data={current.label}
+                             data={current}
                              onChange={(e) => !!onItemChange && onItemChange(e, current)}
                 />
             })}
@@ -28,7 +27,6 @@ const DataSegment = ({data, label, onItemChange}) => <Fragment>
 
 DataSegment.propTypes = {
     data: PropTypes.array.isRequired,
-    label: PropTypes.string.isRequired,
     onItemChange: PropTypes.func
 }
 

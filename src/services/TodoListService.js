@@ -13,6 +13,14 @@ export const findAll = () => {
         })
 }
 
+export const findById = (id) => {
+    return Fetch
+        .get(`todo/list/${id}`)
+        .then((response) => {
+            return new TodoListModel(response.data)
+        })
+}
+
 export const remove = (id) => {
     let idRemove = parseInt(id, 10)
     if (isNaN(idRemove)) return Promise.reject(new Error("Incorrect ID"))
