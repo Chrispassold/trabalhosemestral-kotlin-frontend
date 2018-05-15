@@ -8,7 +8,8 @@ const Item = ({data, ...rest}) => <Segment>
     <Grid>
         <GridRow>
             <GridColumn verticalAlign={'middle'} width={14}>
-                <CheckboxCheckGreen {...rest} label={data.name} checked={data.checked}/>
+                <CheckboxCheckGreen {...rest} name={data.name.replace(' ', '_').concat(`_${data.id}`)} label={data.name}
+                                    checked={!!data.checked}/>
             </GridColumn>
         </GridRow>
     </Grid>

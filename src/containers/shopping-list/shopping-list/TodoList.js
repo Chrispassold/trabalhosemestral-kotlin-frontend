@@ -49,9 +49,9 @@ class TodoList extends Component {
         }, Math.floor(Math.random() * 1000))
     }
 
-    filterOnlyDone = (data) => !!data.checked
+    filterOnlyChecked = (data) => !!data.checked
 
-    filterOnlyNotDone = (data) => !data.checked
+    filterOnlyNotChecked = (data) => !data.checked
 
     save = (e, object) => {
         this.getTodoList().then((todoList) => {
@@ -79,9 +79,9 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'}
+                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}
                                  onItemChange={this.updateStatus}/>
-                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'}
+                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}
                                  onItemChange={this.updateStatus}/>
                 </GridColumn>
             </GridRow>

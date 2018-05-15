@@ -1,14 +1,11 @@
 import React from 'react'
 
-// const CheckboxCheckGreen = ({label, onChange, ...rest}) => <div className="pretty p-default p-round p-smooth p-plain">
-//     <input {...rest} type="checkbox" onChange={(e) => !!onChange && onChange(e.target.checked)}/>
-//     <div className="state p-success-o">
-//         <label>{label}</label>
-//     </div>
-// </div>
-
 const style = {
+    normal: {
+        paddingLeft: '10px',
+    },
     checked: {
+        paddingLeft: '10px',
         textDecoration: 'line-through',
         opacity: 0.6
     }
@@ -20,7 +17,7 @@ const CheckboxCheckGreen = ({label, onChange, checked, ...rest}) => <div
     <div className="state p-success">
         <i className="icon mdi mdi-check"/>
         <label>
-            <span style={!!checked ? style.checked : {}}>{label}</span>
+            <span style={!!checked ? style.checked : style.normal}>{label}</span>
         </label>
     </div>
 </div>
