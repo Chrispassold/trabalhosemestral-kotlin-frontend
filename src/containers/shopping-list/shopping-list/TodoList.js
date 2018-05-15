@@ -53,9 +53,19 @@ class TodoList extends Component {
 
     filterOnlyNotDone = (data) => !data.checked
 
-    //todo: salvar
     save = (e, object) => {
+        this.getTodoList().then((todoList) => {
+            object.todoList = todoList
+            Service.insert(object).then(console.log)
+        })
+    }
 
+    updateStatus = (e, object) => {
+        if (e.target.checked) {
+            Service.markAsDone(object).finally(this.search)
+        } else {
+            Service.markAsDoing(object).finally(this.search)
+        }
     }
 
     render() {
@@ -69,8 +79,10 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'} onItemChange={this.save}/>
-                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'} onItemChange={this.save}/>
+                    <DataSegment data={data.filter(this.filterOnlyNotDone)} label={'Fazer'}
+                                 onItemChange={this.updateStatus}/>
+                    <DataSegment data={data.filter(this.filterOnlyDone)} label={'Feito'}
+                                 onItemChange={this.updateStatus}/>
                 </GridColumn>
             </GridRow>
         </Grid>
