@@ -63,6 +63,8 @@ class TodoList extends Component {
     render() {
         const {inputLoading, data} = this.state
 
+        console.log(data)
+
         return <Grid columns={9} centered>
             <GridRow>
                 <GridColumn width={9}>
@@ -71,8 +73,10 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}/>
-                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}/>
+                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}
+                                 handleSearch={this.search}/>
+                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}
+                                 handleSearch={this.search}/>
                 </GridColumn>
             </GridRow>
         </Grid>

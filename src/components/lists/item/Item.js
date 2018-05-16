@@ -11,10 +11,13 @@ class Item extends Component {
         Service
             .toggleChecked(object)
             .catch(console.error)
+            .finally(() => !!this.props.handleSearch && this.props.handleSearch())
     }
 
     render() {
         const {data, ...rest} = this.props
+
+        delete rest.handleSearch
 
         return <Segment>
             <Grid>
@@ -36,7 +39,7 @@ class Item extends Component {
 
 Item.propTypes = {
     data: PropTypes.instanceOf(TodoItemModel),
-
+    handleSearch: PropTypes.func
 }
 
 export default Item;

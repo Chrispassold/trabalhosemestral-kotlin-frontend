@@ -6,7 +6,7 @@ import {If} from "components/helper/index";
 import Item from "components/lists/item/Item";
 import EmptyData from "components/empty/EmptyData";
 
-const DataSegment = ({data, label}) => <Fragment>
+const DataSegment = ({data, label, handleSearch}) => <Fragment>
     <Header as={'h3'} attached='top' block>
         {label}
     </Header>
@@ -15,9 +15,10 @@ const DataSegment = ({data, label}) => <Fragment>
             <EmptyData/>
         </If>
         <If check={!!data.length}>
-            {_.map(data, (current, index) => {
-                return <Item key={index}
+            {_.map(data, (current) => {
+                return <Item key={current.id}
                              data={current}
+                             handleSearch={handleSearch}
                 />
             })}
         </If>
@@ -25,7 +26,9 @@ const DataSegment = ({data, label}) => <Fragment>
 </Fragment>
 
 DataSegment.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    label: PropTypes.string.isRequired,
+    handleSearch: PropTypes.func
 }
 
 export default DataSegment
