@@ -22,6 +22,9 @@ const DataSegment = ({data, label, handleSearch}) => <Fragment>
                 />
             })}
         </If>
+
+        {/*<Divider section />*/}
+
     </Segment>
 </Fragment>
 
