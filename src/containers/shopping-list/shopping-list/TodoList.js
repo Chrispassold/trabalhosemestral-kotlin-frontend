@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn, GridRow} from 'semantic-ui-react'
+import {Divider, Grid, GridColumn, GridRow} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
 import * as Service from "services/TodoItemService"
 import * as ServiceTodoList from "services/TodoListService"
-import DataSegment from 'components/lists/item/DataSegment'
 import {generatedUUID} from "../../../utils/commom";
+import _ from "lodash";
+import Item from "../../../components/lists/item/Item";
+import EmptyData from "../../../components/empty/EmptyData";
+import If from "../../../components/helper/If";
+import Assets from "../../../components/assets/Assets";
 
 class TodoList extends Component {
     state = {
@@ -60,10 +64,20 @@ class TodoList extends Component {
         })
     }
 
+    buildItems = (data) => {
+        return _.map(data, (current) => {
+            return <Item key={current.id}
+                         data={current}
+                         handleSearch={this.search}
+            />
+        })
+    }
+
     render() {
         const {inputLoading, data} = this.state
 
-        console.log(data)
+        const doing = data.filter(this.filterOnlyNotChecked)
+        const done = data.filter(this.filterOnlyChecked)
 
         return <Grid columns={9} centered>
             <GridRow>
@@ -73,10 +87,25 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}
-                                 handleSearch={this.search}/>
-                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}
-                                 handleSearch={this.search}/>
+                    <If check={!data.length}>
+                        <EmptyData/>
+                    </If>
+
+                    <If check={!doing.length}>
+                        <Assets src={'/svg/happy.svg'} size={'mini'}/>
+                    </If>
+
+                    <If check={!!doing.length}>
+                        {this.buildItems(doing)}
+                    </If>
+
+                    <If check={!!data.length}>
+                        <Divider section/>
+                    </If>
+
+                    <If check={!!done.length}>
+                        {this.buildItems(done)}
+                    </If>
                 </GridColumn>
             </GridRow>
         </Grid>
