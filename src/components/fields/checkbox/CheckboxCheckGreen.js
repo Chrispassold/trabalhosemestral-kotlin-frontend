@@ -10,7 +10,6 @@ const style = {
         opacity: 0.6
     }
 }
-//TODO: fazer componente controlado e colocar um icone de check
 const CheckboxCheckGreen = ({label, onChange, checked, ...rest}) => <div
     className="pretty p-icon p-round p-jelly">
     <input {...rest} defaultChecked={checked} type="checkbox" onChange={(e) => !!onChange && onChange(e)}/>

@@ -60,14 +60,6 @@ class TodoList extends Component {
         })
     }
 
-    updateStatus = (e, object) => {
-        if (e.target.checked) {
-            Service.markAsDone(object).finally(this.search)
-        } else {
-            Service.markAsDoing(object).finally(this.search)
-        }
-    }
-
     render() {
         const {inputLoading, data} = this.state
 
@@ -79,10 +71,8 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}
-                                 onItemChange={this.updateStatus}/>
-                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}
-                                 onItemChange={this.updateStatus}/>
+                    <DataSegment data={data.filter(this.filterOnlyNotChecked)} label={'Fazer'}/>
+                    <DataSegment data={data.filter(this.filterOnlyChecked)} label={'Feito'}/>
                 </GridColumn>
             </GridRow>
         </Grid>

@@ -23,20 +23,10 @@ export const insert = (todoItemModel) => {
         .then((response) => new TodoItemModel(response.data))
 }
 
-//todo: erro
-export const markAsDone = (todoItemModel) => {
+export const toggleChecked = (todoItemModel) => {
     if (!todoItemModel) return new Promise.reject(new Error("Todo item cannot be null"))
 
     if (!todoItemModel.id) return new Promise.reject(new Error("Todo item id cannot be null"))
 
-    return Fetch.put(`/todo/item/${todoItemModel.id}/done`);
-}
-
-//todo: erro
-export const markAsDoing = (todoItemModel) => {
-    if (!todoItemModel) return new Promise.reject(new Error("Todo item cannot be null"))
-
-    if (!todoItemModel.id) return new Promise.reject(new Error("Todo item id cannot be null"))
-
-    return Fetch.put(`/todo/item/${todoItemModel.id}/doing`);
+    return Fetch.put(`/todo/item/${todoItemModel.id}/toggle`);
 }

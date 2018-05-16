@@ -6,7 +6,7 @@ import {If} from "components/helper/index";
 import Item from "components/lists/item/Item";
 import EmptyData from "components/empty/EmptyData";
 
-const DataSegment = ({data, label, onItemChange}) => <Fragment>
+const DataSegment = ({data, label}) => <Fragment>
     <Header as={'h3'} attached='top' block>
         {label}
     </Header>
@@ -18,7 +18,6 @@ const DataSegment = ({data, label, onItemChange}) => <Fragment>
             {_.map(data, (current, index) => {
                 return <Item key={index}
                              data={current}
-                             onChange={(e) => !!onItemChange && onItemChange(e, current)}
                 />
             })}
         </If>
@@ -26,8 +25,7 @@ const DataSegment = ({data, label, onItemChange}) => <Fragment>
 </Fragment>
 
 DataSegment.propTypes = {
-    data: PropTypes.array.isRequired,
-    onItemChange: PropTypes.func
+    data: PropTypes.array.isRequired
 }
 
 export default DataSegment
