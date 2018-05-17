@@ -7,7 +7,7 @@ import {browserHistory} from 'react-router'
 import ProgressListItem from 'components/lists/progress/ProgressListItem'
 import CreateListModal from "./create-list-modal/CreateListModal";
 import * as Service from 'services/TodoListService'
-import EmptyData from "components/empty/EmptyData";
+import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
 import If from "../../../components/helper/If";
 
 class TodoListGroup extends Component {
@@ -48,7 +48,7 @@ class TodoListGroup extends Component {
             </Grid>
 
             <If check={_.isEmpty(data)}>
-                <EmptyData/>
+                <EmptyDataMessage/>
             </If>
 
             <If check={!_.isEmpty(data)}>

@@ -4,7 +4,7 @@ import _ from "lodash";
 import {Header, Segment} from 'semantic-ui-react'
 import {If} from "components/helper/index";
 import Item from "components/lists/item/Item";
-import EmptyData from "components/empty/EmptyData";
+import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
 
 const DataSegment = ({data, label, handleSearch}) => <Fragment>
     <Header as={'h3'} attached='top' block>
@@ -12,7 +12,7 @@ const DataSegment = ({data, label, handleSearch}) => <Fragment>
     </Header>
     <Segment attached>
         <If check={!data.length}>
-            <EmptyData/>
+            <EmptyDataMessage/>
         </If>
         <If check={!!data.length}>
             {_.map(data, (current) => {

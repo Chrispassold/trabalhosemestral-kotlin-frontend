@@ -3,12 +3,12 @@ import {Divider, Grid, GridColumn, GridRow} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
 import * as Service from "services/TodoItemService"
 import * as ServiceTodoList from "services/TodoListService"
-import {generatedUUID} from "../../../utils/commom";
+import {generatedUUID} from "utils/commom";
 import _ from "lodash";
-import Item from "../../../components/lists/item/Item";
-import EmptyData from "../../../components/empty/EmptyData";
-import If from "../../../components/helper/If";
-import Assets from "../../../components/assets/Assets";
+import Item from "components/lists/item/Item";
+import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
+import If from "components/helper/If";
+import HappyMessage from "components/message/alright/HappyMessage";
 
 class TodoList extends Component {
     state = {
@@ -75,7 +75,7 @@ class TodoList extends Component {
 
     render() {
         const {inputLoading, data} = this.state
-
+        const dataEmpty = !data.length
         const doing = data.filter(this.filterOnlyNotChecked)
         const done = data.filter(this.filterOnlyChecked)
 
@@ -87,12 +87,12 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <If check={!data.length}>
-                        <EmptyData/>
+                    <If check={dataEmpty}>
+                        <EmptyDataMessage/>
                     </If>
 
-                    <If check={!doing.length}>
-                        <Assets src={'/svg/happy.svg'} size={'mini'}/>
+                    <If check={!dataEmpty && !doing.length}>
+                        <HappyMessage/>
                     </If>
 
                     <If check={!!doing.length}>
