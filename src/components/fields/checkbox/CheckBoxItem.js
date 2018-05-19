@@ -14,7 +14,8 @@ const style = {
         fill: 'white',
     }
 }
-const CheckboxCheckGreen = ({label, onChange, checked, ...rest}) => <div>
+
+const CheckBoxItem = ({label, onChange, checked, ...rest}) => <div>
     <div className="pretty p-svg p-curve">
         <input {...rest} defaultChecked={checked} type="checkbox" onChange={(e) => !!onChange && onChange(e)}/>
         <div className="state p-success">
@@ -28,4 +29,4 @@ const CheckboxCheckGreen = ({label, onChange, checked, ...rest}) => <div>
     </div>
 </div>
 
-export default CheckboxCheckGreen
+export default CheckBoxItem

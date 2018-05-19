@@ -30,7 +30,7 @@ export default class TodoListItems extends Component {
         return _.map(data, (current) => {
             return <Item key={current.id}
                          data={current}
-                         handleSearch={this.search}
+                         onUpdate={this.props.onItemUpdate}
             />
         })
     }
@@ -77,5 +77,6 @@ export default class TodoListItems extends Component {
 
 TodoListItems.propTypes = {
     data: PropTypes.array.isRequired,
-    loading: PropTypes.bool
+    onItemUpdate: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
 }

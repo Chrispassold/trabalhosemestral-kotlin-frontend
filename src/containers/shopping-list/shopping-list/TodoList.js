@@ -81,7 +81,7 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <TodoListItems data={data} loading={searchLoading}/>
+                    <TodoListItems data={data} loading={searchLoading} onItemUpdate={this.search}/>
                 </GridColumn>
             </GridRow>
         </Grid>
