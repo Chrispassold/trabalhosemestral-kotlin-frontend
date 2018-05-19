@@ -8,6 +8,7 @@ import Item from "components/lists/item/Item";
 import TodoListItems from "./TodoListItems";
 import OmgMessage from "components/message/error/OmgMessage";
 import If from "components/helper/If";
+import TodoItemModel from "model/TodoItemModel";
 
 class TodoList extends Component {
     state = {
@@ -15,57 +16,61 @@ class TodoList extends Component {
         data: [],
         todoList: undefined,
         error: false,
-        loadingInitialData: false
+        loadingSearch: false
     }
 
     componentDidMount() {
         this.getTodoList()
-            .then((response) => {
-                if (!response) return new Promise.reject(new Error("Todo list not found"))
-                this.search()
+            .then(() => {
+                return this.search()
             })
             .catch((error) => {
-                console.error(error)
                 this.setState({error: true})
             })
     }
 
     getTodoList = () => {
-        if (this.state.todoList) {
+        if (!_.isEmpty(this.state.todoList)) {
             return new Promise(() => this.state.todoList)
         }
 
         return ServiceTodoList
             .findById(this.props.params.id)
             .then((response) => {
-                this.setState({todoList: response})
+                if (_.isEmpty(response)) return new Promise.reject(new Error("Todo list not found"))
                 return response
+            }).then(() => {
+                this.setState({todoList: response})
             });
     }
 
     search = () => {
-        Service
+        this.startSearchLoading()
+        return Service
             .findAll(this.state.todoList)
             .then((arrResponse) => this.setState({data: arrResponse}))
+            .finally(this.stopSearchLoading)
     }
 
     startInputLoading = () => this.setState({inputLoading: true})
 
     stopInputLoading = () => this.setState({inputLoading: false})
 
-    //TODO: buscar itens
+    startSearchLoading = () => this.setState({loadingSearch: true})
+
+    stopSearchLoading = () => this.setState({loadingSearch: false})
+
     onActionClick = (value) => {
         this.startInputLoading()
-        setTimeout(() => {
-            this.stopInputLoading()
-        }, Math.floor(Math.random() * 1000))
-    }
 
-    save = (e, object) => {
         this.getTodoList().then((todoList) => {
-            object.todoList = todoList
-            Service.insert(object).then(console.log)
+            const object = new TodoItemModel({name: value, todoList: todoList})
+            Service
+                .insert(object)
+                .then(() => this.search())
+                .finally(this.stopInputLoading)
         })
+
     }
 
     buildItems = (data) => {
@@ -78,7 +83,7 @@ class TodoList extends Component {
     }
 
     render() {
-        const {inputLoading, data, error, loadingInitialData} = this.state
+        const {inputLoading, data, error, loadingSearch} = this.state
 
 
         return <Grid columns={9} centered>
@@ -94,7 +99,7 @@ class TodoList extends Component {
                     </If>
 
                     <If check={!error}>
-                        <TodoListItems data={data} loading={loadingInitialData}/>
+                        <TodoListItems data={data} loading={loadingSearch}/>
                     </If>
                 </GridColumn>
             </GridRow>

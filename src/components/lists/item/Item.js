@@ -6,7 +6,6 @@ import TodoItemModel from "model/TodoItemModel";
 import * as Service from "services/TodoItemService";
 
 class Item extends Component {
-    //TODO: SEARCH
     updateStatus = (object) => {
         Service
             .toggleChecked(object)

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Grid, GridColumn, Icon} from 'semantic-ui-react'
+import {Button, Grid, GridColumn, Icon, Loader} from 'semantic-ui-react'
 import _ from 'lodash'
 
 import {browserHistory} from 'react-router'
@@ -14,7 +14,8 @@ class TodoListGroup extends Component {
 
     state = {
         openNew: false,
-        data: []
+        data: [],
+        loadingSearch: false
     }
 
     openNew = () => this.setState({openNew: true})
@@ -25,20 +26,29 @@ class TodoListGroup extends Component {
     }
 
     search = () => {
+        this.startSearchLoading()
         Service.findAll()
             .then((responseModel) => {
-                console.log(responseModel)
                 this.setState({data: responseModel})
             })
+            .finally(this.stopSearchLoading)
 
     }
+
+    startSearchLoading = () => this.setState({loadingSearch: true})
+
+    stopSearchLoading = () => this.setState({loadingSearch: false})
 
     componentDidMount() {
         this.search()
     }
 
     render() {
-        const {openNew, data} = this.state
+        const {openNew, data, loadingSearch} = this.state
+
+        if (loadingSearch) {
+            return <Loader active={loadingSearch}/>
+        }
 
         return <div>
             <Grid>
