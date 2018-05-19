@@ -43,6 +43,7 @@ export default class TodoListItems extends Component {
         }
 
         if (!Array.isArray(data)) {
+            console.error("Data is not an array")
             return null;
         }
 

@@ -25,7 +25,9 @@ class TodoList extends Component {
 
     getTodoList = () => {
         if (!_.isEmpty(this.state.todoList)) {
-            return new Promise(() => this.state.todoList)
+            return new Promise((resolve) => {
+                return resolve(this.state.todoList)
+            })
         }
 
         return ServiceTodoList
@@ -35,6 +37,7 @@ class TodoList extends Component {
                 return response
             }).then((response) => {
                 this.setState({todoList: response})
+                return response
             });
     }
 
@@ -46,6 +49,20 @@ class TodoList extends Component {
             .finally(this.stopSearchLoading)
     }
 
+    onAdd = (value) => {
+        this.startInputLoading()
+
+        this.getTodoList()
+            .then((todoList) => {
+                const object = new TodoItemModel({name: value, todoList: todoList})
+                return Service
+                    .insert(object)
+                    .then(() => this.search())
+            })
+            .finally(this.stopInputLoading)
+
+    }
+
     startInputLoading = () => this.setState({inputLoading: true})
 
     stopInputLoading = () => this.setState({inputLoading: false})
@@ -54,25 +71,12 @@ class TodoList extends Component {
 
     stopSearchLoading = () => this.setState({searchLoading: false})
 
-    onActionClick = (value) => {
-        this.startInputLoading()
-
-        this.getTodoList().then((todoList) => {
-            const object = new TodoItemModel({name: value, todoList: todoList})
-            Service
-                .insert(object)
-                .then(() => this.search())
-                .finally(this.stopInputLoading)
-        })
-
-    }
-
     render() {
         const {inputLoading, data, searchLoading} = this.state
         return <Grid columns={9} centered>
             <GridRow>
                 <GridColumn width={9}>
-                    <InputAdd loading={inputLoading} onRequestHandle={this.onActionClick}/>
+                    <InputAdd loading={inputLoading} onRequestHandle={this.onAdd}/>
                 </GridColumn>
             </GridRow>
             <GridRow>

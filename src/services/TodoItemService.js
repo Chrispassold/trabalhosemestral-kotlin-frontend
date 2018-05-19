@@ -18,6 +18,8 @@ export const insert = (todoItemModel) => {
 
     if (!todoList) return new Promise.reject(new Error("Todo list cannot be null"))
 
+    console.log(todoItemModel)
+
     return Fetch
         .post(`todo/item`, todoItemModel)
         .then((response) => new TodoItemModel(response.data))
