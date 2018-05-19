@@ -35,9 +35,9 @@ class TodoListGroup extends Component {
 
     }
 
-    startSearchLoading = () => this.setState({loadingSearch: true})
+    startSearchLoading = () => this.setState({searchLoading: true})
 
-    stopSearchLoading = () => this.setState({loadingSearch: false})
+    stopSearchLoading = () => this.setState({searchLoading: false})
 
     componentDidMount() {
         this.search()

@@ -1,9 +1,12 @@
 import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {Divider, Loader} from 'semantic-ui-react'
 import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
 import If from "components/helper/If";
 import HappyMessage from "components/message/alright/HappyMessage";
+import Item from "components/lists/item/Item";
+
 
 export default class TodoListItems extends Component {
 
@@ -11,11 +14,32 @@ export default class TodoListItems extends Component {
 
     filterOnlyNotChecked = (data) => !data.checked
 
+    shouldComponentUpdate(nextProps) {
+        if (!_.isEqual(nextProps.data, this.props.data)) {
+            return true;
+        }
+
+        if (nextProps.loading !== this.props.loading) {
+            return true;
+        }
+
+        return false;
+    }
+
+    buildItems = (data) => {
+        return _.map(data, (current) => {
+            return <Item key={current.id}
+                         data={current}
+                         handleSearch={this.search}
+            />
+        })
+    }
+
     render() {
-        const {data, loading = false} = this.props.data
+        const {data, loading = false} = this.props
 
         if (loading) {
-            return <Loader active={this.prop.loading}/>
+            return <Loader active={loading}/>
         }
 
         if (!Array.isArray(data)) {

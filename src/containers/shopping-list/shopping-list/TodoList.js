@@ -4,10 +4,7 @@ import InputAdd from "components/fields/input/InputAdd";
 import * as Service from "services/TodoItemService"
 import * as ServiceTodoList from "services/TodoListService"
 import _ from "lodash";
-import Item from "components/lists/item/Item";
 import TodoListItems from "./TodoListItems";
-import OmgMessage from "components/message/error/OmgMessage";
-import If from "components/helper/If";
 import TodoItemModel from "model/TodoItemModel";
 
 class TodoList extends Component {
@@ -16,16 +13,13 @@ class TodoList extends Component {
         data: [],
         todoList: undefined,
         error: false,
-        loadingSearch: false
+        searchLoading: true
     }
 
     componentDidMount() {
         this.getTodoList()
             .then(() => {
                 return this.search()
-            })
-            .catch((error) => {
-                this.setState({error: true})
             })
     }
 
@@ -39,7 +33,7 @@ class TodoList extends Component {
             .then((response) => {
                 if (_.isEmpty(response)) return new Promise.reject(new Error("Todo list not found"))
                 return response
-            }).then(() => {
+            }).then((response) => {
                 this.setState({todoList: response})
             });
     }
@@ -56,9 +50,9 @@ class TodoList extends Component {
 
     stopInputLoading = () => this.setState({inputLoading: false})
 
-    startSearchLoading = () => this.setState({loadingSearch: true})
+    startSearchLoading = () => this.setState({searchLoading: true})
 
-    stopSearchLoading = () => this.setState({loadingSearch: false})
+    stopSearchLoading = () => this.setState({searchLoading: false})
 
     onActionClick = (value) => {
         this.startInputLoading()
@@ -73,19 +67,8 @@ class TodoList extends Component {
 
     }
 
-    buildItems = (data) => {
-        return _.map(data, (current) => {
-            return <Item key={current.id}
-                         data={current}
-                         handleSearch={this.search}
-            />
-        })
-    }
-
     render() {
-        const {inputLoading, data, error, loadingSearch} = this.state
-
-
+        const {inputLoading, data, searchLoading} = this.state
         return <Grid columns={9} centered>
             <GridRow>
                 <GridColumn width={9}>
@@ -94,13 +77,7 @@ class TodoList extends Component {
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <If check={error}>
-                        <OmgMessage/>
-                    </If>
-
-                    <If check={!error}>
-                        <TodoListItems data={data} loading={loadingSearch}/>
-                    </If>
+                    <TodoListItems data={data} loading={searchLoading}/>
                 </GridColumn>
             </GridRow>
         </Grid>
