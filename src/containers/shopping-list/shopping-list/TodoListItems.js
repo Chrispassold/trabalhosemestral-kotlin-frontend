@@ -4,7 +4,7 @@ import _ from 'lodash'
 import {Divider, Loader} from 'semantic-ui-react'
 import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
 import If from "components/helper/If";
-import HappyMessage from "components/message/alright/HappyMessage";
+import HappyMessage from "components/message/success/HappyMessage";
 import Item from "components/lists/item/Item";
 
 

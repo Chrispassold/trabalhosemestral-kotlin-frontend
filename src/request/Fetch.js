@@ -6,6 +6,8 @@ function Fetch() {
 
     const request = () => Axios.create(RequestConfig)
 
+    //TODO: INTERCEPTOR PARA ERROR 404, 401, 403
+
     const paramsToConfig = (params) => {
         let config = {}
 

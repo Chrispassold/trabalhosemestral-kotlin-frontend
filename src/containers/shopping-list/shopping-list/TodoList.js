@@ -63,13 +63,13 @@ class TodoList extends Component {
 
     }
 
-    startInputLoading = () => this.setState({inputLoading: true})
+    startInputLoading = () => !this.state.inputLoading && this.setState({inputLoading: true})
 
-    stopInputLoading = () => this.setState({inputLoading: false})
+    stopInputLoading = () => this.state.inputLoading && this.setState({inputLoading: false})
 
-    startSearchLoading = () => this.setState({searchLoading: true})
+    startSearchLoading = () => !this.state.searchLoading && this.setState({searchLoading: true})
 
-    stopSearchLoading = () => this.setState({searchLoading: false})
+    stopSearchLoading = () => this.state.searchLoading && this.setState({searchLoading: false})
 
     render() {
         const {inputLoading, data, searchLoading} = this.state

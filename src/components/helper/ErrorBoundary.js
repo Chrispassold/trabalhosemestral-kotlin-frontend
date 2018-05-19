@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import OmgMessage from "components/message/error/OmgMessage";
+import ErrorMessage from "components/message/error/ErrorMessage";
 
 class ErrorBoundary extends Component {
     state = {
@@ -14,7 +14,7 @@ class ErrorBoundary extends Component {
 
     render() {
         if (this.state.hasError) {
-            return <OmgMessage/>
+            return <ErrorMessage/>
         }
 
         return this.props.children
