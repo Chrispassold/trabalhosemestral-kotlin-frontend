@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Grid, GridColumn, GridRow, Segment} from 'semantic-ui-react'
 import TodoItemModel from "model/TodoItemModel";
 import * as Service from "services/TodoItemService";
-import CheckBoxItemOffline from "../../fields/checkbox/CheckBoxItemOffline";
+import CheckBoxItem from "components/fields/checkbox/CheckBoxItem";
 
 class Item extends Component {
     updateStatus = (object) => {
@@ -22,7 +22,7 @@ class Item extends Component {
             <Grid>
                 <GridRow>
                     <GridColumn verticalAlign={'middle'} width={14}>
-                        <CheckBoxItemOffline
+                        <CheckBoxItem
                             {...rest}
                             onChange={() => this.updateStatus(data)}
                             name={data.name.replace(' ', '_').concat(`_${data.id}`)}

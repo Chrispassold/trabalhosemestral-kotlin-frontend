@@ -22,7 +22,8 @@ const ProgressListItem = ({data, onClick}) => <Card.Group>
             </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-            <Progress percent={!!data.percent ? data.percent : 0} success size={'tiny'} style={progressStyle}/>
+            <Progress percent={!!data.percent ? data.percent : 0} color={data.percent < 100 ? 'blue' : 'green'}
+                      size={'tiny'} style={progressStyle}/>
         </Card.Content>
     </Card>
 </Card.Group>
