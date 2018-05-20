@@ -15,4 +15,5 @@ export default <Fragment>
     </Route>
     <Route path='login' component={Login}/>
     <Route path='*' component={NotFound}/>
+    <Route path='/notfound' component={NotFound}/>
 </Fragment>

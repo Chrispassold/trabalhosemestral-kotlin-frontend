@@ -1,12 +1,30 @@
 import React from 'react'
 import Axios from 'axios'
+import {browserHistory} from 'react-router'
 import RequestConfig from './request.config'
 
 function Fetch() {
 
-    const request = () => Axios.create(RequestConfig)
+    const request = () => errorResponseInterceptor(Axios.create(RequestConfig))
 
-    //TODO: INTERCEPTOR PARA ERROR 404, 401, 403
+    const errorResponseInterceptor = (axiosInstance) => {
+        axiosInstance.interceptors.response.use(function (response) {
+            console.info("interceptor response", response)
+            return response;
+        }, function (error) {
+
+            if (error.response) {
+                switch (error.response.status) {
+                    case 404:
+                        browserHistory.push('/notfound')
+                }
+            }
+
+            return Promise.reject(error);
+        });
+
+        return axiosInstance
+    }
 
     const paramsToConfig = (params) => {
         let config = {}

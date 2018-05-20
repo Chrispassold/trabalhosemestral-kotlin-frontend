@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Grid, GridColumn, Icon, Loader} from 'semantic-ui-react'
+import {Button, Divider, Grid, GridColumn, Icon, Loader} from 'semantic-ui-react'
 import _ from 'lodash'
 
 import {browserHistory} from 'react-router'
@@ -10,6 +10,12 @@ import * as Service from 'services/TodoListService'
 import EmptyDataMessage from "components/message/empty/EmptyDataMessage";
 import If from "../../../components/helper/If";
 
+const style = {
+    completed: {
+        opacity: 0.5
+    }
+}
+
 class TodoListGroup extends Component {
 
     state = {
@@ -18,10 +24,7 @@ class TodoListGroup extends Component {
         loadingSearch: false
     }
 
-    openNew = () => this.setState({openNew: true})
-
-    closeNew = () => {
-        this.setState({openNew: false})
+    componentDidMount() {
         this.search()
     }
 
@@ -35,13 +38,25 @@ class TodoListGroup extends Component {
 
     }
 
+    buildItems = (data) => _.map(data, (value, index) => <GridColumn key={index}>
+            <ProgressListItem data={value} onClick={() => browserHistory.push(`${value.id}/items`)}/>
+        </GridColumn>
+    )
+
+    openNew = () => this.setState({openNew: true})
+
+    closeNew = () => {
+        this.setState({openNew: false})
+        this.search()
+    }
+
     startSearchLoading = () => this.setState({searchLoading: true})
 
     stopSearchLoading = () => this.setState({searchLoading: false})
 
-    componentDidMount() {
-        this.search()
-    }
+    filterCompleted = (value) => value.percent >= 100
+
+    filterNotCompleted = (value) => !this.filterCompleted(value)
 
     render() {
         const {openNew, data, loadingSearch} = this.state
@@ -49,6 +64,9 @@ class TodoListGroup extends Component {
         if (loadingSearch) {
             return <Loader active={loadingSearch}/>
         }
+
+        const dataCompleted = data.filter(this.filterCompleted)
+        const dataNotCompleted = data.filter(this.filterNotCompleted)
 
         return <div>
             <Grid>
@@ -63,11 +81,14 @@ class TodoListGroup extends Component {
 
             <If check={!_.isEmpty(data)}>
                 <Grid columns={3} stackable>
-                    {_.map(data, (value, index) => <GridColumn key={index}>
-                            <ProgressListItem data={value} onClick={() => browserHistory.push(`${value.id}/items`)}/>
-                        </GridColumn>
-                    )}
+                    {this.buildItems(dataNotCompleted)}
                 </Grid>
+                <If check={dataCompleted.length > 0}>
+                    <Divider section/>
+                    <Grid columns={3} stackable style={style.completed}>
+                        {this.buildItems(dataCompleted)}
+                    </Grid>
+                </If>
             </If>
             {openNew && <CreateListModal open={openNew} onClose={this.closeNew}/>}
         </div>
