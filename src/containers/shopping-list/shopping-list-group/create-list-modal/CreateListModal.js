@@ -6,6 +6,7 @@ import {isEnterPressed} from "utils/commom";
 import TodoListModel from "model/TodoListModel";
 import * as Service from 'services/TodoListService'
 import Shake from "components/animations/Shake";
+import {browserHistory} from "react-router";
 
 
 export default class CreateListModal extends Component {
@@ -49,7 +50,14 @@ export default class CreateListModal extends Component {
 
         return Service
             .insert(model)
-            .then(this.onSuccess)
+            .then((responseModel) => {
+
+                if (!!responseModel && !!responseModel.id) {
+                    browserHistory.push(`${responseModel.id}/items`)
+                } else {
+                    this.onSuccess(responseModel)
+                }
+            })
             .catch(this.onError)
     }
 

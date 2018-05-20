@@ -30,7 +30,10 @@ export const remove = (id) => {
         .then((response) => console.log(response))
 }
 
-export const insert = (TodoListModel) => {
+export const insert = (todoListModel) => {
     return Fetch
-        .post('todo/list', TodoListModel)
+        .post('todo/list', todoListModel)
+        .then((response) => {
+            return new TodoListModel(response.data)
+        })
 }

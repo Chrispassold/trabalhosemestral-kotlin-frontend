@@ -9,7 +9,6 @@ function Fetch() {
 
     const errorResponseInterceptor = (axiosInstance) => {
         axiosInstance.interceptors.response.use(function (response) {
-            console.info("interceptor response", response)
             return response;
         }, function (error) {
 

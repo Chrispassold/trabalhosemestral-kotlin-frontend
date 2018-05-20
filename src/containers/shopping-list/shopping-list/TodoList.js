@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn, GridRow} from 'semantic-ui-react'
+import {Grid, GridColumn, GridRow, Header} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
 import * as Service from "services/TodoItemService"
 import * as ServiceTodoList from "services/TodoListService"
@@ -72,8 +72,14 @@ class TodoList extends Component {
     stopSearchLoading = () => this.state.searchLoading && this.setState({searchLoading: false})
 
     render() {
-        const {inputLoading, data, searchLoading} = this.state
+        const {inputLoading, todoList, data, searchLoading} = this.state
         return <Grid columns={9} centered>
+            <GridRow>
+                <GridColumn width={9}>
+                    <Header as='h2' style={{opacity: 0.5}} content={todoList ? todoList.name : "Loading..."}
+                            disabled={!todoList}/>
+                </GridColumn>
+            </GridRow>
             <GridRow>
                 <GridColumn width={9}>
                     <InputAdd loading={inputLoading} onRequestHandle={this.onAdd}/>

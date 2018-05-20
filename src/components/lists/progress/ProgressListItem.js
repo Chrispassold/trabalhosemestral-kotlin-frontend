@@ -8,7 +8,7 @@ import RandomAvatarImage from "components/assets/RandomAvatarImage";
 const progressStyle = {
     marginBottom: 0
 }
-
+//todo: deleção ou completar botoes de acao
 const ProgressListItem = ({data, onClick}) => <Card.Group>
     <Card fluid onClick={() => !!onClick && onClick()}>
         <Card.Content>
@@ -25,6 +25,12 @@ const ProgressListItem = ({data, onClick}) => <Card.Group>
             <Progress percent={!!data.percent ? data.percent : 0} color={data.percent < 100 ? 'blue' : 'green'}
                       size={'tiny'} style={progressStyle}/>
         </Card.Content>
+        {/*<Card.Content extra>*/}
+        {/*<div className='ui two buttons'>*/}
+        {/*<Button basic color='green'>Terminar</Button>*/}
+        {/*<Button basic color='red'>Excluir</Button>*/}
+        {/*</div>*/}
+        {/*</Card.Content>*/}
     </Card>
 </Card.Group>
 
