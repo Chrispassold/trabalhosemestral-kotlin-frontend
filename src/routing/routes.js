@@ -1,12 +1,13 @@
 import React, {Fragment} from 'react';
 import {IndexRoute, Route} from 'react-router';
 // COMPONENTS
-import App from './App'
-import TodoListGroup from "./containers/shopping-list/shopping-list-group/TodoListGroup";
-import Login from "./containers/login/Login";
-import TodoList from "./containers/shopping-list/shopping-list/TodoList";
+import App from '../App'
+import TodoListGroup from "../containers/shopping-list/shopping-list-group/TodoListGroup";
+import Login from "../containers/login/Login";
+import Signout from "../containers/login/Signout";
+import TodoList from "../containers/shopping-list/shopping-list/TodoList";
 // ERROS
-import NotFound from "./containers/error/NotFound";
+import NotFound from "../containers/error/NotFound";
 
 export default <Fragment>
     <Route path='/' component={App}>
@@ -14,6 +15,7 @@ export default <Fragment>
         <Route path={':id/items'} component={TodoList}/>
     </Route>
     <Route path='login' component={Login}/>
+    <Route path='signout' component={Signout}/>
     <Route path='*' component={NotFound}/>
     <Route path='/notfound' component={NotFound}/>
 </Fragment>

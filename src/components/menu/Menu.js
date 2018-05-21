@@ -5,9 +5,9 @@ import Assets from 'components/assets/Assets'
 
 const items = [
     {
-        title: "Login",
+        title: "Sair",
         as: 'a',
-        href: '/login',
+        href: '/signout',
         position: 'right'
     }
 ]

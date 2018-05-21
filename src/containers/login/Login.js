@@ -1,14 +1,33 @@
 import React, {Component} from 'react'
 import {Button, Form, Grid, Segment} from 'semantic-ui-react'
 import {browserHistory} from 'react-router'
+import {auth} from 'components/firebase'
 
 import Assets from "../../components/assets/Assets";
-//TODO: fazer login
+import {firebase} from "../../components/firebase";
+import FullScreenLoader from "../../components/loader/FullScreenLoader";
+
 export default class Login extends Component {
     state = {
         user: undefined,
         password: undefined,
         loading: false,
+        loadingContent: true
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            firebase.auth.onAuthStateChanged(authUser => {
+                if (!!authUser) {
+                    browserHistory.push('/')
+                    return;
+                }
+
+                this.setState({
+                    loadingContent: false
+                })
+            });
+        }, 1000)
     }
 
     onChangeUser = (e) => {
@@ -45,16 +64,20 @@ export default class Login extends Component {
         if (this.isLoading()) return;
 
         this.startLoading()
-        setTimeout(() => {
-            this.stopLoading()
-            browserHistory.push('/')
-        }, 5000)
+
+        auth.doSignInWithEmailAndPassword(this.state.user, this.state.password)
+            .then((user) => console.log(user))
+            .finally(this.stopLoading)
     }
 
 
     render() {
 
-        const {loading} = this.state
+        const {loading, loadingContent} = this.state
+
+        if (loadingContent) {
+            return <FullScreenLoader active={loadingContent}/>
+        }
 
         return <div className='login-form'>
             {/*

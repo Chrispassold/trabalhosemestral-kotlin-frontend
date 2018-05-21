@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 import {browserHistory, Router} from 'react-router'
 
-import appRoutes from './routes'
+import appRoutes from './routing/routes'
 
 const renderApp = (appRoutes) => {
     render(
@@ -19,8 +19,8 @@ const renderApp = (appRoutes) => {
 renderApp(appRoutes)
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept('./routes', () => {
-        const newRoutes = require('./routes').default;
+    module.hot.accept('./routing/routes', () => {
+        const newRoutes = require('./routing/routes').default;
         renderApp(newRoutes)
     })
 }
