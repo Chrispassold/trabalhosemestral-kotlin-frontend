@@ -54,12 +54,19 @@ class InputAdd extends Component {
         }
     }
 
+    focus = () => {
+        if (this.inputRef) {
+            this.inputRef.focus()
+        }
+    }
+
     toggleAnimation = () => this.setState({errorToggle: !this.state.errorToggle})
 
     render() {
         const {loading = false, autoFocus = true} = this.props
         return <Shake visible={this.state.errorToggle}>
             <Input fluid
+                   ref={(ref) => this.inputRef = ref}
                    autoFocus={autoFocus}
                    loading={loading}
                    disabled={loading}

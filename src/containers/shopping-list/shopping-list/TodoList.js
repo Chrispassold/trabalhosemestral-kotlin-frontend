@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Grid, GridColumn, GridRow, Header} from 'semantic-ui-react'
+import {Grid, GridColumn, GridRow,} from 'semantic-ui-react'
 import InputAdd from "components/fields/input/InputAdd";
 import * as Service from "services/TodoItemService"
 import * as ServiceTodoList from "services/TodoListService"
 import _ from "lodash";
 import TodoListItems from "./TodoListItems";
 import TodoItemModel from "model/TodoItemModel";
+import EditableHeader from "components/fields/header/EditableHeader";
 
 class TodoList extends Component {
     state = {
@@ -60,6 +61,11 @@ class TodoList extends Component {
                     .then(() => this.search())
             })
             .finally(this.stopInputLoading)
+            .finally(() => {
+                if (this.inputAddRef) {
+                    this.inputAddRef.focus()
+                }
+            })
 
     }
 
@@ -76,13 +82,13 @@ class TodoList extends Component {
         return <Grid columns={9} centered>
             <GridRow>
                 <GridColumn width={9}>
-                    <Header as='h2' style={{opacity: 0.5}} content={todoList ? todoList.name : "Loading..."}
-                            disabled={!todoList}/>
+                    <EditableHeader text={!!todoList ? todoList.name : 'Loading...'}/>
                 </GridColumn>
             </GridRow>
             <GridRow>
                 <GridColumn width={9}>
-                    <InputAdd loading={inputLoading} onRequestHandle={this.onAdd}/>
+                    <InputAdd ref={(ref) => this.inputAddRef = ref} loading={inputLoading}
+                              onRequestHandle={this.onAdd}/>
                 </GridColumn>
             </GridRow>
             <GridRow>

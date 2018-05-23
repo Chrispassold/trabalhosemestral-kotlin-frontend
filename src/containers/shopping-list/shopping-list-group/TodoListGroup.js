@@ -80,9 +80,11 @@ class TodoListGroup extends Component {
             </If>
 
             <If check={!_.isEmpty(data)}>
-                <Grid columns={3} stackable>
-                    {this.buildItems(dataNotCompleted)}
-                </Grid>
+                <If check={dataNotCompleted.length > 0}>
+                    <Grid columns={3} stackable>
+                        {this.buildItems(dataNotCompleted)}
+                    </Grid>
+                </If>
                 <If check={dataCompleted.length > 0}>
                     <If check={dataNotCompleted.length > 0} content={<Divider section/>}/>
                     <Grid columns={3} stackable style={style.completed}>
