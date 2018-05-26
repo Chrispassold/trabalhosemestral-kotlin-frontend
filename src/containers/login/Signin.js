@@ -1,18 +1,22 @@
 import React, {Component} from 'react'
-import {Button, Form, Grid, Segment} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 import {browserHistory} from 'react-router'
-import {auth} from 'components/firebase'
+import _ from 'lodash'
 
-import Assets from "../../components/assets/Assets";
-import {firebase} from "../../components/firebase";
-import FullScreenLoader from "../../components/loader/FullScreenLoader";
+import {auth, firebase} from 'components/firebase'
+import Assets from "components/assets/Assets";
+import FullScreenLoader from "components/loader/FullScreenLoader";
+import TextErrorMessage from "components/message/error/TextErrorMessage";
+import {validateEmail, validatePassword} from "utils/validation";
+import SigninForm from "./SigninForm";
 
-export default class Login extends Component {
+export default class Signin extends Component {
     state = {
         user: undefined,
         password: undefined,
         loading: false,
-        loadingContent: true
+        loadingContent: true,
+        errorMessage: []
     }
 
     componentDidMount() {
@@ -60,20 +64,50 @@ export default class Login extends Component {
         return this.state.loading
     }
 
+    setError = (message) => {
+        this.setState({errorMessage: message})
+    }
+
+    isFormValid = () => {
+        const {user, password} = this.state
+        let errors = []
+
+        const messagePassword = validatePassword(password)
+        const messageEmail = validateEmail(user)
+        if (messageEmail.isValid) {
+            errors.push(messageEmail.message)
+        }
+
+        if (messagePassword.isValid) {
+            errors.push(messagePassword.message)
+        }
+
+        if (errors.length > 0) {
+            this.setError(errors)
+        }
+
+        return errors.length === 0
+    }
+
     submit = () => {
         if (this.isLoading()) return;
 
-        this.startLoading()
 
-        auth.doSignInWithEmailAndPassword(this.state.user, this.state.password)
-            .then((user) => console.log(user))
-            .finally(this.stopLoading)
+        if (this.isFormValid()) {
+            this.startLoading()
+
+            auth.doSignInWithEmailAndPassword(this.state.user, this.state.password)
+                .catch((error) => {
+                    this.setError([auth.handleError(error)])
+                })
+                .finally(this.stopLoading)
+        }
     }
 
 
     render() {
 
-        const {loading, loadingContent} = this.state
+        const {loading, loadingContent, errorMessage} = this.state
 
         if (loadingContent) {
             return <FullScreenLoader active={loadingContent}/>
@@ -99,29 +133,14 @@ export default class Login extends Component {
             >
                 <Grid.Column style={{maxWidth: 450}}>
                     <Assets size={'small'} src={'/logo.png'} style={{padding: 20}} centered/>
-                    <Form size='large'>
-                        <Segment stacked>
-                            <Form.Input
-                                fluid
-                                icon='user'
-                                iconPosition='left'
-                                placeholder='E-mail address'
-                                onChange={this.onChangeUser}
-                            />
-                            <Form.Input
-                                fluid
-                                icon='lock'
-                                iconPosition='left'
-                                placeholder='Password'
-                                type='password'
-                                onChange={this.onChangePassword}
-                            />
 
-                            <Button primary fluid size='large' as={'a'} loading={loading} onClick={this.submit}>
-                                Entrar
-                            </Button>
-                        </Segment>
-                    </Form>
+                    {!_.isEmpty(errorMessage) &&
+                    <TextErrorMessage list={errorMessage}/>
+                    }
+
+                    <SigninForm onSubmit={this.submit} onChangeUser={this.onChangeUser}
+                                onChangePassword={this.onChangePassword} loading={loading}/>
+
                     {/*<Message>*/}
                     {/*New to us? <a href='#'>Sign Up</a>*/}
                     {/*</Message>*/}

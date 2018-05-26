@@ -19,3 +19,15 @@ export const doPasswordReset = (email) =>
 // Password Change
 export const doPasswordUpdate = (password) =>
     auth.currentUser.updatePassword(password);
+
+//Handling errors
+export const handleError = (error) => {
+    switch (error.code) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+            return 'Usuário ou senha incorretos'
+        default:
+            console.log(error)
+            return 'Algo de errado não está certo'
+    }
+}

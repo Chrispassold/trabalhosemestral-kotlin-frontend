@@ -11,8 +11,8 @@ const style = {
     }
 }
 
-const FullScreenLoader = ({active}) => <Dimmer active={active} inverted>
-    <Loader active={active} size={'large'}>Carregando conteúdo...</Loader>
+const FullScreenLoader = ({active, message = "Carregando conteúdo..."}) => <Dimmer active={active} inverted>
+    <Loader active={active} size={'large'}>{message}</Loader>
 </Dimmer>
 
 export default FullScreenLoader;
