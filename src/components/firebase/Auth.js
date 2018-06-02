@@ -32,13 +32,13 @@ export const handleError = (error) => {
     }
 }
 
-export const getSignUser = async () => {
-    try {
-
-        let authUser = await auth.currentUser;
-        console.log(authUser)
-    } catch (e) {
-        console.error("getSignUser", e)
-    }
-
-}
+// export const getSignUser = async () => {
+//     try {
+//
+//         let authUser = await auth.currentUser;
+//         console.log(authUser)
+//     } catch (e) {
+//         console.error("getSignUser", e)
+//     }
+//
+// }
