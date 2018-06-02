@@ -5,11 +5,7 @@
       {
         "modules": false,
         "targets": {
-          "browsers": [
-            "last 2 versions",
-            "ie >= 11",
-            "safari >= 10"
-          ]
+          "node": "current"
         }
       }
     ],

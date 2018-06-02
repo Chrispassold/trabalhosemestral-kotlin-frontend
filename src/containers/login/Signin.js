@@ -20,24 +20,22 @@ export default class Signin extends Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            firebase.auth.onAuthStateChanged(authUser => {
-                if (!!authUser) {
-                    browserHistory.push('/')
-                    return;
-                }
+        firebase.auth.onAuthStateChanged(authUser => {
+            if (!!authUser) {
+                browserHistory.push('/')
+                return;
+            }
 
-                this.setState({
-                    loadingContent: false
-                })
-            });
-        }, 1000)
+            this.setState({
+                loadingContent: false
+            })
+        });
     }
 
     onChangeUser = (e) => {
         const user = e.target.value
         if (user !== null && user.trim() !== "") {
-            this.setState({user})
+            this.setState({user: user})
         } else {
             this.setState({user: undefined})
         }
@@ -85,15 +83,14 @@ export default class Signin extends Component {
         if (errors.length > 0) {
             this.setError(errors)
         }
-
         return errors.length === 0
     }
 
     submit = () => {
-        if (this.isLoading()) return;
+        if (this.isLoading()) return
 
-
-        if (this.isFormValid()) {
+        const isFormValid = this.isFormValid()
+        if (isFormValid) {
             this.startLoading()
 
             auth.doSignInWithEmailAndPassword(this.state.user, this.state.password)
@@ -108,6 +105,7 @@ export default class Signin extends Component {
     render() {
 
         const {loading, loadingContent, errorMessage} = this.state
+
 
         if (loadingContent) {
             return <FullScreenLoader active={loadingContent}/>
