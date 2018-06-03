@@ -15,6 +15,7 @@ class EditableHeader extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
+        console.log(nextProps)
         return {
             text: nextProps.text
         }
