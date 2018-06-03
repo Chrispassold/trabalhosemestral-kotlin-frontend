@@ -1,18 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Dimmer, Loader} from 'semantic-ui-react'
 
-const style = {
-    container: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        zIndex: 10000,
-        backgroudColor: 'red'
-    }
-}
-
-const FullScreenLoader = ({active}) => <Dimmer active={active} inverted>
-    <Loader active={active} size={'large'}>Carregando conteúdo...</Loader>
+const FullScreenLoader = ({active = true, message = 'Carregando conteúdo...'}) => <Dimmer active={active} inverted>
+    <Loader active={active} size={'large'}>{message}</Loader>
 </Dimmer>
+
+FullScreenLoader.propTypes = {
+    active: PropTypes.bool
+}
 
 export default FullScreenLoader;

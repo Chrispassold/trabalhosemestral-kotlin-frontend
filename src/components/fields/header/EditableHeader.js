@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
-import {Header, Input} from 'semantic-ui-react'
-import {isEnterPressed} from "utils/commom";
+import {Form, Header, Input} from 'semantic-ui-react'
 import Shake from "components/animations/Shake";
 import If from "components/helper/If";
 
@@ -12,12 +11,6 @@ class EditableHeader extends Component {
         errorToggle: true,
         loading: false,
         editing: false
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        return {
-            text: nextProps.text
-        }
     }
 
     toggleAnimation = () => this.setState({errorToggle: !this.state.errorToggle})
@@ -37,13 +30,8 @@ class EditableHeader extends Component {
             return;
         }
 
+        this.props.onSave(text)
         this.toggleEditing()
-    }
-
-    onActionKeyPress = (e) => {
-        if (isEnterPressed(e)) {
-            this.save(e)
-        }
     }
 
     render() {
@@ -54,17 +42,18 @@ class EditableHeader extends Component {
             </If>
             <Shake visible={errorToggle}>
                 <If check={editing}>
-                    <Input fluid
-                           as={'h2'}
-                           className={'header'}
-                           style={{opacity: 0.8}}
-                           transparent
-                           loading={loading}
-                           disabled={loading}
-                           value={text}
-                           onChange={this.onChange}
-                           onKeyPress={this.onActionKeyPress}
-                    />
+                    <Form onSubmit={this.save}>
+                        <Input fluid
+                               transparent
+                               as={'h2'}
+                               className={'header'}
+                               style={{opacity: 0.8}}
+                               loading={loading}
+                               disabled={loading}
+                               value={text}
+                               onChange={this.onChange}
+                        />
+                    </Form>
                 </If>
             </Shake>
         </Fragment>
@@ -73,6 +62,7 @@ class EditableHeader extends Component {
 
 EditableHeader.propTypes = {
     text: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired
 }
 
 export default EditableHeader
