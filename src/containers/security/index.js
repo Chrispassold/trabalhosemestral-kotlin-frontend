@@ -29,7 +29,7 @@ export default class AuthorizationProvider extends Component {
         }
 
         if (_.isEmpty(this.state.authUser)) {
-            browserHistory.push('login')
+            browserHistory.push('signin')
             return null;
         }
 
