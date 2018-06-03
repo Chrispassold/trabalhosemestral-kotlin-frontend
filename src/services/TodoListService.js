@@ -22,17 +22,28 @@ export const findById = (id) => {
 }
 
 export const remove = (id) => {
-    let idRemove = parseInt(id, 10)
-    if (isNaN(idRemove)) return Promise.reject(new Error("Incorrect ID"))
+    let intId = parseInt(id, 10)
+    if (isNaN(intId)) return Promise.reject(new Error("Incorrect ID"))
 
     return Fetch
-        .delete(`todo/list/${idRemove}`)
+        .delete(`todo/list/${intId}`)
         .then((response) => console.log(response))
 }
 
 export const insert = (todoListModel) => {
     return Fetch
         .post('todo/list', todoListModel)
+        .then((response) => {
+            return new TodoListModel(response.data)
+        })
+}
+
+export const update = (id, todoListModel) => {
+    let intId = parseInt(id, 10)
+    if (isNaN(intId)) return Promise.reject(new Error("Incorrect ID"))
+
+    return Fetch
+        .put(`/todo/list/${intId}`, todoListModel)
         .then((response) => {
             return new TodoListModel(response.data)
         })

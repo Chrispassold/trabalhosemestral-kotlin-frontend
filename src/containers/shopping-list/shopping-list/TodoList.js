@@ -7,6 +7,7 @@ import _ from "lodash";
 import TodoListItems from "./TodoListItems";
 import TodoItemModel from "model/TodoItemModel";
 import EditableHeader from "components/fields/header/EditableHeader";
+import FullScreenLoader from "../../../components/loader/FullScreenLoader";
 
 class TodoList extends Component {
     state = {
@@ -24,15 +25,12 @@ class TodoList extends Component {
             })
     }
 
-    getTodoList = () => {
-        if (!_.isEmpty(this.state.todoList)) {
-            return new Promise((resolve) => {
-                return resolve(this.state.todoList)
-            })
-        }
+    getIdTodoList = () => this.props.params.id
 
+    refreshTodoList = () => {
+        this.setState({todoList: undefined})
         return ServiceTodoList
-            .findById(this.props.params.id)
+            .findById(this.getIdTodoList())
             .then((response) => {
                 if (_.isEmpty(response)) return new Promise.reject(new Error("Todo list not found"))
                 return response
@@ -40,6 +38,16 @@ class TodoList extends Component {
                 this.setState({todoList: response})
                 return response
             });
+    }
+
+    getTodoList = () => {
+        if (!_.isEmpty(this.state.todoList)) {
+            return new Promise((resolve) => {
+                return resolve(this.state.todoList)
+            })
+        }
+
+        return this.refreshTodoList()
     }
 
     search = () => {
@@ -69,6 +77,15 @@ class TodoList extends Component {
 
     }
 
+    onTodoListUpdate = (text) => {
+        this.getTodoList()
+            .then((todoList) => {
+                todoList.name = text
+                return ServiceTodoList.update(this.getIdTodoList(), todoList)
+                    .then(this.refreshTodoList)
+            })
+    }
+
     startInputLoading = () => !this.state.inputLoading && this.setState({inputLoading: true})
 
     stopInputLoading = () => this.state.inputLoading && this.setState({inputLoading: false})
@@ -79,10 +96,15 @@ class TodoList extends Component {
 
     render() {
         const {inputLoading, todoList, data, searchLoading} = this.state
+
+        if (!todoList) {
+            return <FullScreenLoader/>
+        }
+
         return <Grid columns={9} centered>
             <GridRow>
                 <GridColumn width={9}>
-                    <EditableHeader text={!!todoList ? todoList.name : 'Loading...'}/>
+                    <EditableHeader text={todoList.name} onSave={this.onTodoListUpdate}/>
                 </GridColumn>
             </GridRow>
             <GridRow>
