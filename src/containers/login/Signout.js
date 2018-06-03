@@ -8,11 +8,11 @@ export default class Signout extends Component {
     componentDidMount() {
         setTimeout(() => {
             auth.doSignOut()
-                .finally(() => browserHistory.push('login'))
+                .finally(() => browserHistory.push('signin'))
         }, 1000)
     }
 
     render() {
-        return <FullScreenLoader active={true}/>
+        return <FullScreenLoader active={true} message={"Saindo..."}/>
     }
 }

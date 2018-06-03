@@ -3,7 +3,7 @@ import {IndexRoute, Route} from 'react-router';
 // COMPONENTS
 import App from '../App'
 import TodoListGroup from "../containers/shopping-list/shopping-list-group/TodoListGroup";
-import Login from "../containers/login/Login";
+import Signin from "../containers/login/Signin";
 import Signout from "../containers/login/Signout";
 import TodoList from "../containers/shopping-list/shopping-list/TodoList";
 // ERROS
@@ -14,7 +14,7 @@ export default <Fragment>
         <IndexRoute component={TodoListGroup}/>
         <Route path={':id/items'} component={TodoList}/>
     </Route>
-    <Route path='login' component={Login}/>
+    <Route path='signin' component={Signin}/>
     <Route path='signout' component={Signout}/>
     <Route path='*' component={NotFound}/>
     <Route path='/notfound' component={NotFound}/>
