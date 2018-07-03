@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Card, Progress} from 'semantic-ui-react'
 import {humanize} from "utils/date";
-import RandomAvatarImage from "components/assets/RandomAvatarImage";
 
 
 const progressStyle = {
@@ -12,7 +11,7 @@ const progressStyle = {
 const ProgressListItem = ({data, onClick}) => <Card.Group>
     <Card fluid onClick={() => !!onClick && onClick()}>
         <Card.Content>
-            <RandomAvatarImage floated='right' size='mini'/>
+            {/*<RandomAvatarImage floated='right' size='mini'/>*/}
             <Card.Header>
                 {data.name}
             </Card.Header>
